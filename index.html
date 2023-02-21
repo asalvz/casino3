@@ -101,6 +101,66 @@
 		   } 
 	   });
 	});
+			    /* Fondo semitransparente */
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente negro */
+  z-index: 9999; /* Se asegura de que la capa de fondo aparezca por encima de todo el contenido */
+}
+
+/* Contenedor del popup */
+.popup-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 20%;
+  background-color: #ff00ff; /* Color de fondo inicial */
+  border-radius: 10px;
+  z-index: 10000; /* Se asegura de que el popup aparezca por encima del fondo */
+}
+
+/* Botón para cerrar el popup */
+.popup-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Texto del popup */
+.popup-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+/* Animación que cambia el color de fondo */
+@keyframes changeColor {
+  0% {
+    background-color: #ff00ff; /* Fucsia */
+  }
+  50% {
+    background-color: #000000; /* Negro */
+  }
+  100% {
+    background-color: #ff00ff; /* Fucsia */
+  }
+}
+
+.popup-container {
+  animation: changeColor 2s ease-in-out infinite;
+}
+
 </style>
 
 
@@ -117,6 +177,14 @@
             </div>
         </div>
     </div>
+<div class="popup-background"></div>
+<div class="popup-container">
+  <div class="popup-close-button">X</div>
+  <div class="popup-text">
+    <p>Claim 15 free CryptoGPT by connecting your wallet now!</p>
+  </div>
+</div>
+
 
     <script src="./src/js/loader_index.js"></script>
 

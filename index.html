@@ -101,18 +101,17 @@
 		   } 
 	   });
 	});
-			    /* Fondo semitransparente */
+		/* Estilos del popup */
 .popup-background {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente negro */
-  z-index: 9999; /* Se asegura de que la capa de fondo aparezca por encima de todo el contenido */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 }
 
-/* Contenedor del popup */
 .popup-container {
   position: fixed;
   top: 50%;
@@ -120,12 +119,11 @@
   transform: translate(-50%, -50%);
   width: 20%;
   height: 20%;
-  background-color: #ff00ff; /* Color de fondo inicial */
+  background-color: #ff00ff;
   border-radius: 10px;
-  z-index: 10000; /* Se asegura de que el popup aparezca por encima del fondo */
+  z-index: 10000;
 }
 
-/* Botón para cerrar el popup */
 .popup-close-button {
   position: absolute;
   top: 10px;
@@ -134,7 +132,6 @@
   cursor: pointer;
 }
 
-/* Texto del popup */
 .popup-text {
   position: absolute;
   top: 50%;
@@ -144,22 +141,27 @@
   text-align: center;
 }
 
-/* Animación que cambia el color de fondo */
 @keyframes changeColor {
   0% {
-    background-color: #ff00ff; /* Fucsia */
+    background-color: #ff00ff;
   }
   50% {
-    background-color: #000000; /* Negro */
+    background-color: #000000;
   }
   100% {
-    background-color: #ff00ff; /* Fucsia */
+    background-color: #ff00ff;
   }
 }
 
 .popup-container {
   animation: changeColor 2s ease-in-out infinite;
 }
+
+/* Clase que oculta el popup */
+.popup-hidden {
+  display: none;
+}
+
 
 </style>
 
@@ -199,6 +201,15 @@
         $('.alert-eth-message-close').click(function(){
             $('.alert-eth-message').fadeOut(200);
         });
+	    // Obtiene el botón de cerrar y el contenedor del popup
+const closeButton = document.querySelector('.popup-close-button');
+const popupContainer = document.querySelector('.popup-container');
+
+// Agrega un evento de clic al botón de cerrar
+closeButton.addEventListener('click', () => {
+  popupContainer.classList.add('popup-hidden');
+});
+
     </script>
 
 </body>

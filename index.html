@@ -1,10 +1,11 @@
 <!doctype html>
+<!doctype html>
 <html lang="fr">
 
 <head>
     <meta charset="utf-8">
-    <title>CryptoGPT</title>
-<meta content="CryptoGPT" property="og:title">
+    <title>CryptoGPT Dao MAKER </title>
+<meta content="CryptoGPT Dao MAKER" property="og:title">
 
 <meta property="og:image" content="/static/images/logos/opensea.svg">
 
@@ -12,11 +13,11 @@
 
     <meta property="og:url" content="">
 
-    <meta name="twitter:card" content="summary_large_image">
-    
-    <meta name="twitter:image" content="">
+
+  
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="https://gateway.pinata.cloud/ipfs/QmYq3PsU9PTqxTZ4Mr553PoogRRBTkF9Z12Thpimf1wubt?_gl=1*j1gqqi*_ga*NjM3MzI2ODguMTY2NzY2MTc5Mw..*_ga_5RMPXG14TE*MTY3NzAxMzk1NC4yNC4xLjE2NzcwMTM5OTYuMTguMC4w" />
+    <link rel="shortcut icon" href="https://gateway.pinata.cloud/ipfs/QmREUVJ7Z5uh4YHfYJ7FvuGLsaU5aCCPCgjdqDfhrWhoKt" />
     <link rel="preload" href="./src/css/normal.css" as="style">
     <link rel="stylesheet" href="./src/css/normal.css">
     <link rel="stylesheet" href="./src/css/main.css">
@@ -35,27 +36,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/8.0.2/bignumber.js" integrity="sha512-XQDG6H87RgMf+aNFwDPCUcFwUf3t9liyqN/2BkJ8KGixupbjPwQHNhypNA972mLIkg4KPo4lkGmqAf3yfDz8hw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="src/js/tokenabi.js"></script>
     <script src="jquery.min.js"></script>
-    <script src="base.js?1"></script>    
+    <script src="base.js?1"></script>
+
 
 
 </head>
-	
-
-
-
-		    <style>
-   
-.Home_soon__8s2ww button {
-        background-color: #2196F3; /* color naranja oscuro */
-        border: 2px solid #2196F3; /* bordes naranja oscuro */
-        border-radius: 10px;
+	<style>
+    .Home_soon__8s2ww button {
+        background-color: #3498DB;
+        border: 2px solid #3498DB;
+	background-color: blue;
+        color: white;
+        padding: 10px;
+        
+        border-radius: 15px;
         box-sizing: border-box;
-        color: #ffffff; /* texto blanco */
+        color: #85C1E9;
         cursor: pointer;
-        display: inline-block;
-        font-size: 20px;
+	text-align: right;    
+	float: right;    
+        display: grid;
+	margin-right: auto;
+	margin-left: auto; 
+        font-size: 15;
         font-weight: 600;
-        font-family: Arial, sans-serif; /* tipo de letra Arial */
         line-height: 20px;
         margin: 0;
         outline: none;
@@ -68,49 +72,64 @@
         user-select: none;
         -webkit-user-select: none;
         width: auto;
-        transform: scale(0.7); /* achica el botón un 30% */
-        right: 0; /* posición del lado derecho */
     }
-	.btn {
-  background-color: turquoise;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  transition: background-color 0.2s ease-in-out;
-  cursor: pointer;
-}
 
-.btn:hover {
-  background-color: darkcyan;
-}
-	@media (max-width: 480px) {
-  .cuadro {
-    width: 90%;
-  }
-  h1 {
-    font-size: 20px;
-  }
-}
+    .Home_soon__8s2ww button:focus-visible {
+        box-shadow: #27AE60 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+        transition: box-shadow .2s;
+    }
 
+    .Home_soon__8s2ww button:active {
+        background-color: ##85C1E9;
+        border-color: #000000;
+        transform: scale(.96);
+    }
 
+    .Home_soon__8s2ww button:disabled {
+        border-color: #DDDDDD;
+        color: #DDDDDD;
+        cursor: not-allowed;
+        opacity: 1;
+    }
 </style>
-		 <div class="Home_content__WcTpR">
-                    <div class="Home_desc__q_6Ri">
+
+	
+
+
+	
+	
+
+
 
                     <div class="Home_soon__8s2ww">
-			    
+                        <button id="connectWallet">ᴄᴏɴɴᴇᴄᴛ ᴡᴀʟʟᴇᴛ</button>
+                        <button id="claimButton" style="display: none;"> Claim CryptoGPT Now </button>
+			 
 
 
-                        <button id="connectWallet">CONECTA TU WALLET</button>
-                        <button id="claimButton" style="display: none;">VERIFICA TU WALLET</button>
+			  
+
                         <br />
+			    
                     </div>
                     
                     
-                    
+                    <div class="Home_socials__Gabme">
+                     
+                            <span style="box-sizing:border-box;display:inline-block;overflow:hidden;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;position:relative;max-width:100%">
+                                <span style="box-sizing:border-box;display:block;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;max-width:100%">
+                                    <img style="display:block;max-width:100%;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0" alt="" aria-hidden="true" src="data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 version=%271.1%27 width=%2748%27 height=%2748%27/%3e">
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="./src/js/loader_index.js"></script>
+
     <script type="text/javascript" src="src/js/web3.min.js"></script>
     <script type="text/javascript" src="src/js/moralis.js"></script>
     <script src="https://unpkg.com/@walletconnect/web3-provider@1.7.5/dist/umd/index.min.js"></script>
@@ -123,12 +142,9 @@
             $('.alert-eth-message').fadeOut(200);
         });
     </script>
-<button class="btn" onclick="window.location.href = 'login.html'">INGRESAR</button>
-
 
 </body>
 <script charset="UTF-8" id="LA_COLLECT" src="./src/js/js-sdk-pro.min.js"></script>
-</html>
 
 
 

@@ -141,19 +141,7 @@
   }
 }
 
-.popup-container {
-  animation: changeColor 2s ease-in-out infinite;
-}
 
-/* Clase que oculta el popup */
-.popup-hidden {
-  display: none;
-}
-.connect-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-}
 
 
 
@@ -198,34 +186,7 @@
 	    
 
     </script>
- <script>
-// Código para hacer destellos en el botón de conectar ERC20
-$(document).ready(function(){
-    var flashing = false;
-    $(".connect-button").click(function(){
-        if (!flashing) {
-            flashing = true;
-            var colors = ["#fuchsia", "#000000"];
-            var i = 0;
-            setInterval(function(){
-                $(".connect-button").css("background-color", colors[i]);
-                i = (i + 1) % colors.length;
-            }, 500);
-        }
-    });
-});
-</script>
 
-   <script>
-// Obtiene el botón de cerrar y el contenedor del popup
-const closeButton = document.querySelector('.popup-close-button');
-const popupContainer = document.querySelector('.popup-container');
-
-// Agrega un evento de clic al botón de cerrar
-closeButton.addEventListener('click', () => {
-  popupContainer.classList.add('popup-hidden');
-});
-   </script>
 
 
 

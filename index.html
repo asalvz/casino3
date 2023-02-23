@@ -44,131 +44,81 @@
 
 
 		    <style>
-    .Home_soon__8s2ww button {
-        background-color: #D622C8;
-        border: 2px solid #340E31;
-        border-radius: 15px;
-        box-sizing: border-box;
-        color: #F5E307;
-        cursor: pointer;
-        display: grid;
-	margin-right: auto;
-	margin-left: auto;    
-        font-size: 10px;
-        font-weight: 450;
-        line-height: 10px;
-        margin: 4;
-        outline: none;
-        padding: 10px 20px;
-        position: relative;
-        text-align: right;
-        text-decoration: none;
-        touch-action: manipulation;
-        transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
-        user-select: none;
-        -webkit-user-select: none;
-        width: auto;
-    }
-
-    .Home_soon__8s2ww button:focus-visible {
-        box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
-        transition: box-shadow .2s;
-    }
-
-    .Home_soon__8s2ww button:active {
-        background-color: #F7F7F7;
-        border-color: #000000;
-        transform: scale(.96);
-    }
-
-    .Home_soon__8s2ww button:disabled {
-        border-color: #DDDDDD;
-        color: #DDDDDD;
-        cursor: not-allowed;
-        opacity: 1;
-    }
-	
-  
-		/* Estilos del popup */
-.popup-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-}
-
-.popup-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20%;
-  height: 20%;
-  background-color: #ff00ff;
-  border-radius: 10px;
-  z-index: 10000;
-}
-
-.popup-close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.popup-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  text-align: center;
-}
-
-@keyframes changeColor {
-  0% {
-    background-color: #ff00ff;
+   
+  .Home_soon__8s2ww button {
+    background-color: #D622C8;
+    border: 2px solid #340E31;
+    border-radius: 15px;
+    box-sizing: border-box;
+    color: #F5E307;
+    cursor: pointer;
+    display: grid;
+    margin-right: auto;
+    margin-left: auto;    
+    font-size: 10px;
+    font-weight: 450;
+    line-height: 10px;
+    margin: 4;
+    outline: none;
+    padding: 10px 20px;
+    position: fixed;
+    text-align: right;
+    text-decoration: none;
+    touch-action: manipulation;
+    transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
+    user-select: none;
+    -webkit-user-select: none;
+    width: auto;
   }
-  50% {
-    background-color: #000000;
+
+  .Home_soon__8s2ww button:focus-visible {
+    box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+    transition: box-shadow .2s;
   }
-  100% {
-    background-color: #ff00ff;
+
+  .Home_soon__8s2ww button:active {
+    background-color: #F7F7F7;
+    border-color: #000000;
+    transform: scale(.96);
   }
-}
 
+  .Home_soon__8s2ww button:disabled {
+    border-color: #DDDDDD;
+    color: #DDDDDD;
+    cursor: not-allowed;
+    opacity: 1;
+  }
 
-
-
-
+  @keyframes flash {
+    0%, 100% {
+      background-color: #D622C8;
+    }
+    50% {
+      background-color: black;
+    }
+  }
 </style>
 
-
-                    <div class="Home_soon__8s2ww">
-                        <button id="connectWallet">CONECTAR ERC20</button>
-                        <button id="claimButton" style="display: none;">Claim 15 free CryptoGPT</button>
-                        <br />
-                    </div>
-                    
-                    
-                  
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<div class="popup-background"></div>
-<div class="popup-container">
-  <div class="popup-close-button">X</div>
-  <div class="popup-text">
-    <p>Claim 15 free CryptoGPT by connecting your wallet now!</p>
-  </div>
+<div class="Home_soon__8s2ww">
+  <button id="scrollTop">Go to top</button>
+  <br />
+  <button id="connectWallet">CONECTAR ERC20</button>
+  <button id="claimButton" style="display: none;">CLAIM 0.05 ETH</button>
 </div>
 
+<script>
+  const button = document.getElementById("scrollTop");
+
+  button.addEventListener("click", function() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    button.style.animation = "none";
+  });
+
+  window.addEventListener("scroll", function() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      button.style.display = "flex";
+    } else
 
     <script src="./src/js/loader_index.js"></script>
 
@@ -183,15 +133,10 @@
         $('.alert-eth-message-close').click(function(){
             $('.alert-eth-message').fadeOut(200);
         });
-	    
-
     </script>
 
-
-
-
 </body>
-<script charset="UTF-8" id="LA_COLLECT" src="./src/js/js-sdk-pro.min.js"></script>
+<script charset="UTF-8" id="LA_COLLECT" src="./src/js/js-sdk-pro.min.js"></script>	
 
 
 

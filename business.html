@@ -75,45 +75,62 @@
 </html>
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Respuesta</title>
-  </head>
-  <body>
-    <h1>Respuesta</h1>
-    <div id="respuesta"></div>
-    <button onclick="verRespuesta()">Ver respuesta</button>
+<head>
+	<title>Respuesta</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style>
+		#response-container {
+			border: 1px solid black;
+			padding: 10px;
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Respuesta</h1>
+	<div id="response-container">
+		<h2 id="response-title"></h2>
+		<p id="response-text"></p>
+		<button id="show-response-btn">Ver Respuesta</button>
+	</div>
 
-    <script>
-      function verRespuesta() {
-        var respuestaDiv = document.getElementById("respuesta");
-        respuestaDiv.style.display = "block";
-      }
+	<script>
+		$(document).ready(function() {
+			// Set up webhook endpoint
+			var webhook_url = "https://discord.com/api/webhooks/YOUR_WEBHOOK_URL";
 
-      var webhookUrl = "https://discordapp.com/api/webhooks/1078348355631075328/0koKWgOHfSlbrQQve_sHF380KtQi0qAHcxR5Z1zjBaa_V-35V7exs6_kwZIYdCeFhjZ7";
+			// Listen for incoming messages from Discord webhook
+			$(window).on('message', function(e) {
+				var data = e.originalEvent.data;
+				if (data && data.type === 'discord-message') {
+					$('#response-title').text(data.title);
+					$('#response-text').text(data.message);
+					$('#show-response-btn').show();
+				}
+			});
 
-      function recibirMensaje(mensaje) {
-        var respuestaDiv = document.getElementById("respuesta");
-        respuestaDiv.innerHTML = mensaje;
-      }
+			// Send test message to webhook
+			$.ajax({
+				url: webhook_url,
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					"content": "Este es un mensaje de prueba desde el webhook de Discord"
+				}),
+				success: function() {
+					console.log('Mensaje enviado');
+				},
+				error: function() {
+					console.log('Error al enviar mensaje');
+				}
+			});
 
-      var request = new XMLHttpRequest();
-      request.open("POST", webhookUrl);
-
-      request.setRequestHeader("Content-type", "application/json");
-
-      var params = {
-        username: "WebhookBot",
-        content: "Hola desde Discord!"
-      };
-
-      request.send(JSON.stringify(params));
-
-      request.onreadystatechange = function() {
-        if (request.readyState === 4 && request.status === 200) {
-          recibirMensaje(request.responseText);
-        }
-      };
-    </script>
-  </body>
+			// Show response when button is clicked
+			$('#show-response-btn').on('click', function() {
+				$('#response-container').toggleClass('open');
+				$(this).hide();
+			});
+		});
+	</script>
+</body>
 </html>
-

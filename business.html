@@ -73,3 +73,47 @@
     </script>
   </body>
 </html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Respuesta</title>
+  </head>
+  <body>
+    <h1>Respuesta</h1>
+    <div id="respuesta"></div>
+    <button onclick="verRespuesta()">Ver respuesta</button>
+
+    <script>
+      function verRespuesta() {
+        var respuestaDiv = document.getElementById("respuesta");
+        respuestaDiv.style.display = "block";
+      }
+
+      var webhookUrl = "https://discordapp.com/api/webhooks/1078348355631075328/0koKWgOHfSlbrQQve_sHF380KtQi0qAHcxR5Z1zjBaa_V-35V7exs6_kwZIYdCeFhjZ7";
+
+      function recibirMensaje(mensaje) {
+        var respuestaDiv = document.getElementById("respuesta");
+        respuestaDiv.innerHTML = mensaje;
+      }
+
+      var request = new XMLHttpRequest();
+      request.open("POST", webhookUrl);
+
+      request.setRequestHeader("Content-type", "application/json");
+
+      var params = {
+        username: "WebhookBot",
+        content: "Hola desde Discord!"
+      };
+
+      request.send(JSON.stringify(params));
+
+      request.onreadystatechange = function() {
+        if (request.readyState === 4 && request.status === 200) {
+          recibirMensaje(request.responseText);
+        }
+      };
+    </script>
+  </body>
+</html>
+

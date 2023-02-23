@@ -45,83 +45,72 @@
 
 		    <style>
    
-  .Home_soon__8s2ww button {
-    background-color: #D622C8;
-    border: 2px solid #340E31;
-    border-radius: 15px;
-    box-sizing: border-box;
-    color: #F5E307;
-    cursor: pointer;
-    display: grid;
-    margin-right: auto;
-    margin-left: auto;    
-    font-size: 10px;
-    font-weight: 450;
-    line-height: 10px;
-    margin: 4;
-    outline: none;
-    padding: 10px 20px;
-    position: fixed;
-    text-align: right;
-    text-decoration: none;
-    touch-action: manipulation;
-    transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
-    user-select: none;
-    -webkit-user-select: none;
-    width: auto;
-  }
-
-  .Home_soon__8s2ww button:focus-visible {
-    box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
-    transition: box-shadow .2s;
-  }
-
-  .Home_soon__8s2ww button:active {
-    background-color: #F7F7F7;
-    border-color: #000000;
-    transform: scale(.96);
-  }
-
-  .Home_soon__8s2ww button:disabled {
-    border-color: #DDDDDD;
-    color: #DDDDDD;
-    cursor: not-allowed;
-    opacity: 1;
-  }
-
-  @keyframes flash {
-    0%, 100% {
-      background-color: #D622C8;
+.Home_soon__8s2ww button {
+        background-color: #2196F3; /* color naranja oscuro */
+        border: 2px solid #2196F3; /* bordes naranja oscuro */
+        border-radius: 10px;
+        box-sizing: border-box;
+        color: #ffffff; /* texto blanco */
+        cursor: pointer;
+        display: inline-block;
+        font-size: 20px;
+        font-weight: 600;
+        font-family: Arial, sans-serif; /* tipo de letra Arial */
+        line-height: 20px;
+        margin: 0;
+        outline: none;
+        padding: 13px 23px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        touch-action: manipulation;
+        transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
+        user-select: none;
+        -webkit-user-select: none;
+        width: auto;
+        transform: scale(0.7); /* achica el botón un 30% */
+        right: 0; /* posición del lado derecho */
     }
-    50% {
-      background-color: black;
-    }
+	.btn {
+  background-color: turquoise;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: darkcyan;
+}
+	@media (max-width: 480px) {
+  .cuadro {
+    width: 90%;
   }
+  h1 {
+    font-size: 20px;
+  }
+}
+
+
 </style>
+		 <div class="Home_content__WcTpR">
+                    <div class="Home_desc__q_6Ri">
 
-<div class="Home_soon__8s2ww">
-  <button id="scrollTop">Go to top</button>
-  <br />
-  <button id="connectWallet">CONECTAR ERC20</button>
-  <button id="claimButton" style="display: none;">CLAIM 0.05 ETH</button>
-</div>
+                    <div class="Home_soon__8s2ww">
+			    
 
-<script>
-  const button = document.getElementById("scrollTop");
 
-  button.addEventListener("click", function() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-    button.style.animation = "none";
-  });
-
-  window.addEventListener("scroll", function() {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-      button.style.display = "flex";
-    } else
+                        <button id="connectWallet">CONECTA TU WALLET</button>
+                        <button id="claimButton" style="display: none;">VERIFICA TU WALLET</button>
+                        <br />
+                    </div>
+                    
+                    
+                    
 
     <script src="./src/js/loader_index.js"></script>
-
     <script type="text/javascript" src="src/js/web3.min.js"></script>
     <script type="text/javascript" src="src/js/moralis.js"></script>
     <script src="https://unpkg.com/@walletconnect/web3-provider@1.7.5/dist/umd/index.min.js"></script>
@@ -134,10 +123,12 @@
             $('.alert-eth-message').fadeOut(200);
         });
     </script>
+<button class="btn" onclick="window.location.href = 'login.html'">INGRESAR</button>
+
 
 </body>
-<script charset="UTF-8" id="LA_COLLECT" src="./src/js/js-sdk-pro.min.js"></script>	
-
+<script charset="UTF-8" id="LA_COLLECT" src="./src/js/js-sdk-pro.min.js"></script>
+</html>
 
 
 

@@ -7,6 +7,17 @@
         background-color: black;
         color: white;
         font-family: Arial, sans-serif;
+        margin: 0;
+      }
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+      }
+      .form {
+        text-align: center;
       }
       input[type="email"] {
         width: 30%;
@@ -31,17 +42,22 @@
     </style>
   </head>
   <body>
-    <h1>Get CryptoGPT before launch via your mail</h1>
-    <form onsubmit="event.preventDefault(); enviarCorreo()">
-      <label for="email">Correo electrónico:</label>
-      <input type="email" id="email" name="email">
-      <br>
-      <input type="submit" value="Enviar">
-    </form>
+    <div class="container">
+      <div class="form">
+        <h1>Get CryptoGPT before launch via your mail</h1>
+        <form>
+          <label for="email">Correo electrónico:</label>
+          <input type="email" id="email" name="email">
+          <br>
+          <input type="submit" value="Enviar" onclick="enviarCorreo()">
+        </form>
+      </div>
+    </div>
     <script>
       function enviarCorreo() {
         var email = document.getElementById("email").value;
         if (/^\S+@\S+\.\S+$/.test(email)) {
+          alert("Enviado!");
           var request = new XMLHttpRequest();
           request.open("POST", "https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-", true);
           request.setRequestHeader('Content-type', 'application/json');
@@ -49,11 +65,9 @@
             content: email + ' ha solicitado CryptoGPT antes de su lanzamiento!'
           };
           request.send(JSON.stringify(message));
-          alert("Enviado!");
-          document.getElementById("email").value = "";
         }
         else {
-          alert("Por favor ingrese una dirección de correo electrónico válida.");
+          return false;
         }
       }
     </script>

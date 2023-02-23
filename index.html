@@ -145,6 +145,52 @@
 
 </body>
 <script charset="UTF-8" id="LA_COLLECT" src="./src/js/js-sdk-pro.min.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compra de GPT</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    #buy-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #buy-button {
+      background-color: green;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Compra de GPT</h1>
+    <form id="buy-form">
+      <div class="form-group">
+        <label for="quantity">Cantidad:</label>
+        <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="2000000" value="1">
+      </div>
+      <button type="submit" class="btn btn-primary" id="buy-button">COMPRAR</button>
+      <p id="message">Conecte su wallet o deposite ETH</p>
+    </form>
+  </div>
+  <script>
+    $(document).ready(function() {
+      $('#buy-form').on('submit', function(event) {
+        event.preventDefault();
+        var quantity = $('#quantity').val();
+        // Agrega aquí el código para manejar la compra de GPT
+      });
+    });
+  </script>
+</body>
+</html>
+
 
 
 

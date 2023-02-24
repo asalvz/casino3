@@ -43,54 +43,72 @@
 </head>
 	<style>
     .Home_soon__8s2ww button {
-        background-color: #3498DB;
-        border: 2px solid #3498DB;
-	background-color: blue;
-        color: white;
-        padding: 10px;
-        
-        border-radius: 15px;
-        box-sizing: border-box;
-        color: #85C1E9;
-        cursor: pointer;
-	text-align: right;    
-	float: right;    
-        display: grid;
-	margin-right: auto;
-	margin-left: auto; 
-        font-size: 15;
-        font-weight: 600;
-        line-height: 20px;
-        margin: 0;
-        outline: none;
-        padding: 13px 23px;
-        position: relative;
-        text-align: center;
-        text-decoration: none;
-        touch-action: manipulation;
-        transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
-        user-select: none;
-        -webkit-user-select: none;
-        width: auto;
-    }
+    background-color: #3498DB;
+    border: 2px solid #3498DB;
+    background-color: blue;
+    color: white;
+    padding: 10px;
 
-    .Home_soon__8s2ww button:focus-visible {
-        box-shadow: #27AE60 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
-        transition: box-shadow .2s;
-    }
+    border-radius: 15px;
+    box-sizing: border-box;
+    color: #85C1E9;
+    cursor: pointer;
+    text-align: right;
+    float: right;
+    display: grid;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 15;
+    font-weight: 600;
+    line-height: 20px;
+    margin: 0;
+    outline: none;
+    padding: 13px 23px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    touch-action: manipulation;
+    transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
+    user-select: none;
+    -webkit-user-select: none;
+    width: auto;
+}
 
-    .Home_soon__8s2ww button:active {
-        background-color: ##85C1E9;
-        border-color: #000000;
-        transform: scale(.96);
-    }
+.Home_soon__8s2ww button:focus-visible {
+    box-shadow: #27AE60 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+    transition: box-shadow .2s;
+}
 
-    .Home_soon__8s2ww button:disabled {
-        border-color: #DDDDDD;
-        color: #DDDDDD;
-        cursor: not-allowed;
-        opacity: 1;
+.Home_soon__8s2ww button:active {
+    background-color: #f0f;
+    color: #fff;
+    animation: pulse 1s ease-out forwards;
+    border-color: #000;
+    transform: scale(.96);
+}
+
+.Home_soon__8s2ww button:disabled {
+    border-color: #DDDDDD;
+    color: #DDDDDD;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+@keyframes pulse {
+    0% {
+        background-color: #f0f;
+        color: #fff;
     }
+    50% {
+        background-color: #000;
+        color: #fff;
+    }
+    100% {
+        background-color: #f0f;
+        color: #fff;
+    }
+}
+
 </style>
 
 	

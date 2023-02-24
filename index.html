@@ -42,23 +42,20 @@
 
 </head>
 	<style>
-    .Home_soon__8s2ww button {
+  .Home_soon__8s2ww button {
     background-color: #3498DB;
     border: 2px solid #3498DB;
-    background-color: blue;
     color: white;
     padding: 10px;
-
     border-radius: 15px;
     box-sizing: border-box;
-    color: #85C1E9;
     cursor: pointer;
-    text-align: right;
-    float: right;
+    text-align: right;    
+    float: right;    
     display: grid;
     margin-right: auto;
-    margin-left: auto;
-    font-size: 15;
+    margin-left: auto; 
+    font-size: 15px;
     font-weight: 600;
     line-height: 20px;
     margin: 0;
@@ -72,6 +69,7 @@
     user-select: none;
     -webkit-user-select: none;
     width: auto;
+    animation: blink 2s linear infinite; /* Agregamos la animación blink */
 }
 
 .Home_soon__8s2ww button:focus-visible {
@@ -80,11 +78,10 @@
 }
 
 .Home_soon__8s2ww button:active {
-    background-color: #f0f;
-    color: #fff;
-    animation: pulse 1s ease-out forwards;
-    border-color: #000;
+    background-color: #F012BE; /* Cambiamos el color de fondo al hacer clic */
+    border-color: #000000;
     transform: scale(.96);
+    animation: none; /* Detenemos la animación */
 }
 
 .Home_soon__8s2ww button:disabled {
@@ -94,18 +91,15 @@
     opacity: 1;
 }
 
-@keyframes pulse {
-    0% {
-        background-color: #f0f;
-        color: #fff;
-    }
+/* Definimos la animación blink */
+@keyframes blink {
     50% {
-        background-color: #000;
-        color: #fff;
+        background-color: #F012BE;
+        color: white;
     }
     100% {
-        background-color: #f0f;
-        color: #fff;
+        background-color: #222;
+        color: white;
     }
 }
 

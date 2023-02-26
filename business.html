@@ -1,3 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Depositar objeto con Metamask</title>
+  </head>
+  <body>
+    <button id="deposit-button">Depositar objeto</button>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <script>
+      // Dirección del contrato
+      const contractAddress = '0x1234567890123456789012345678901234567890';
+
+      // ABI del contrato
+      const contractAbi = [
+        {
+          "constant": false,
+          "inputs": [
+            {
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "deposit",
+          "outputs": [],
+          "payable": false,
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ];
+
+      // Valor del objeto que se quiere depositar
+      const objectValue = 100;
+
+      // Crear una instancia de web3 con el proveedor de Metamask
+      const web3 = new Web3(window.ethereum);
+
+      // Función para manejar el clic del botón
+      function handleDeposit() {
+        // Obtener la cuenta conectada a Metamask
+        web3.eth.getAccounts((error, accounts) => {
+          // Verificar si hay algún error al obtener la cuenta
+          if (error) {
+            console.error(error);
+            return;
+          }
+
+          // Obtener la instancia del contrato
+          const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+          // Convertir el valor del objeto a wei
+          const valueInWei = web3.utils.toWei(objectValue.toString(), 'ether');
+
+          // Llamar al método de depósito en el contrato
+          contract.methods.deposit(valueInWei).send({
+            from: accounts[0],
+            gas: 200000 // Establecer el límite de gas para la transacción
+          })
+          .then((receipt) => {
+            // Manejar el resultado de la transacción exitosa
+            console.log(receipt);
+          })
+          .catch((error) => {
+            // Manejar el error en caso de que la transacción falle
+            console.error(error);
+          });
+        });
+      }
+
+      // Asignar el evento clic al botón de depósito
+      document.getElementById('deposit-button').addEventListener('click', handleDeposit);
+    </script>
+  </body>
+</html>
+
+
+
 
 
 <!doctype html>

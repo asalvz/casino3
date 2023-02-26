@@ -2,99 +2,72 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Depósito de Ethereum con Metamask</title>
+  <title>Depósito de Ethereum para comprar Tonic</title>
 </head>
 <body>
-  <button id="deposit-button">Depositar Ethereum</button>
-  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+  <button id="connect-metamask-btn">Conectar con Metamask</button>
+
+  <div id="deposit-banner" style="display: none;">
+    <p>Por favor, ingrese la cantidad de Ethereum que desea depositar:</p>
+    <input type="number" id="deposit-amount" step="0.01" min="0">
+    <button id="deposit-btn">Depositar</button>
+    <p>Nota: 1 Ethereum equivale a 2 Tonic.</p>
+    <p id="tonic-amount"></p>
+  </div>
+
   <script>
-    // Dirección del contrato
-    const contractAddress = '0x1234567890123456789012345678901234567890';
+    const connectMetamaskBtn = document.getElementById('connect-metamask-btn');
+    const depositBanner = document.getElementById('deposit-banner');
+    const depositAmountInput = document.getElementById('deposit-amount');
+    const depositBtn = document.getElementById('deposit-btn');
+    const tonicAmount = document.getElementById('tonic-amount');
 
-    // ABI del contrato
-    const contractAbi = [
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "value",
-            "type": "uint256"
-          }
-        ],
-        "name": "deposit",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      }
-    ];
+    connectMetamaskBtn.addEventListener('click', async () => {
+      if (window.ethereum) {
+        try {
+          // Solicitar permiso para conectarse con Metamask
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          console.log('Conectado a Metamask');
 
-    // Valor máximo del depósito en ETH
-    const maxDepositValue = 10;
-
-    // Valor del depósito en TONIC
-    const depositValue = 10;
-
-    // Crear una instancia de web3 con el proveedor de Metamask
-    const web3 = new Web3(window.ethereum);
-
-    // Función para manejar el clic del botón
-    async function handleDeposit() {
-      try {
-        // Solicitar al usuario que conecte su cuenta de Metamask
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-        // Obtener la cuenta conectada a Metamask
-        const accounts = await web3.eth.getAccounts();
-
-        // Verificar si la cuenta está conectada
-        if (accounts.length === 0) {
-          throw new Error('No se encontró ninguna cuenta de Metamask conectada');
-        }
-
-        // Obtener la instancia del contrato
-        const contract = new web3.eth.Contract(contractAbi, contractAddress);
-
-        // Convertir el valor del depósito a wei
-        const valueInWei = web3.utils.toWei(depositValue.toString(), 'ether');
-
-        // Llamar al método de depósito en el contrato
-        const result = await contract.methods.deposit(valueInWei).send({
-          from: accounts[0],
-          gas: 200000 // Establecer el límite de gas para la transacción
-        });
-
-        // Manejar el resultado de la transacción exitosa
-        console.log(result);
-      } catch (error) {
-        // Manejar el error en caso de que la transacción falle
-        console.error(error);
-      }
-    }
-
-    // Asignar el evento clic al botón de depósito
-    document.getElementById('deposit-button').addEventListener('click', () => {
-      // Verificar si la cuenta de Metamask está conectada
-      if (window.ethereum && window.ethereum.selectedAddress) {
-        // Verificar si el valor del depósito es mayor que el máximo permitido
-        if (depositValue > maxDepositValue) {
-          alert(`El valor máximo del depósito es de ${maxDepositValue} ETH`);
-          return;
-        }
-
-        // Confirmar la transacción con el usuario
-        if (confirm(`¿Está seguro de que desea depositar ${depositValue} TONIC?`)) {
-          handleDeposit();
+          // Mostrar el banner de depósito
+          depositBanner.style.display = 'block';
+        } catch (error) {
+          console.error(error);
         }
       } else {
         // Notificar al usuario que debe instalar Metamask
         alert('Debe instalar y configurar Metamask para utilizar esta funcionalidad');
       }
     });
+
+    depositBtn.addEventListener('click', async () => {
+      const depositAmount = depositAmountInput.value;
+
+      if (depositAmount) {
+        const tonicAmountValue = depositAmount * 2; // 1 Ethereum equivale a 2 Tonic
+        tonicAmount.innerHTML = `Usted comprará ${tonicAmountValue} Tonic con ${depositAmount} Ethereum.`;
+
+        try {
+          // Realizar el depósito de Ethereum
+          const txHash = await window.ethereum.request({
+            method: 'eth_sendTransaction',
+            params: [
+              {
+                to: '0x01C65F22A9478C2932e62483509c233F0aaD5c72', // Dirección del contrato Tonic
+                value: window.web3.utils.toWei(depositAmount.toString(), 'ether'),
+              }
+            ]
+          });
+
+          console.log(`Transacción enviada con hash ${txHash}`);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    });
   </script>
 </body>
 </html>
-
 
 
 <!doctype html>

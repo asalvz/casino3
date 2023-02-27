@@ -3,25 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <title>Dao Maker</title>
-	  <style>
+  <style>
     body {
-      width: 80%; /* Establece el ancho del cuerpo en un 80% */
-      margin: 0 auto; /* Centra el cuerpo en la pantalla */
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #26a69a;
+    }
+
+    label {
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 0 5px #ccc;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 300px;
     }
 
     button {
-      background-color: turquoise; /* Cambia el color de fondo del botón a turquesa */
+      background-color: #26a69a;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #009688;
     }
   </style>
 </head>
 <body>
-  <h1>Swap GPT</h1>
+  <div class="container">
+    <h1>Swap GPT</h1>
 
-  <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
-  <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
+    <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
+    <input type="text" id="amount" placeholder="amount ETH or BNB">
 
-  <button onclick="deposit()">confirm purchase
-</button>
+    <button onclick="deposit()">Confirm Purchase</button>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script>
@@ -64,26 +102,9 @@
           var weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
 
           // Envía la transacción al contrato inteligente
-          web3.eth.sendTransaction({
-            to: '0x8935361d21943Ee8a863082EdD8a6Aefb062E434', // Dirección de tu contrato inteligente
-            from: account,
-            value: weiAmount
-          }, function(err, txHash) {
-            if (err) {
-              alert("Se produjo un error al enviar la transacción: " + err);
-            } else {
-              alert("La transacción se ha enviado correctamente: " + txHash);
-            }
-          });
-        }).catch(function(error) {
-          alert("Debes conectarte a Metamask para realizar esta transacción.");
-        });
-      } else {
-        alert("Debes tener Metamask instalado para realizar esta transacción.");
-      }
-    }
-  </script>
-</body>
+         
+
+
 </html>
 
 

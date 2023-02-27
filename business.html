@@ -1,80 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Dao Maker</title>
-</head>
-<body>
-  <h1>Swap GPT</h1>
 
-  <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
-  <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
-
-  <button onclick="deposit()">confirm purchase
-</button>
-
-  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-  <script>
-    // Conecta con la billetera de Metamask
-    if (typeof window.ethereum !== 'undefined') {
-      var web3 = new Web3(window.ethereum);
-
-      ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
-        // Obtiene la dirección de la cuenta de Metamask
-        var account = accounts[0];
-
-        // Muestra la dirección de la cuenta en la página
-        var addressElement = document.createElement("p");
-        addressElement.innerHTML = "Tu dirección de Ethereum es: " + account;
-        document.body.appendChild(addressElement);
-      }).catch(function(error) {
-        alert("Debes conectarte a Metamask para realizar esta transacción.");
-      });
-    } else {
-      alert("Debes tener Metamask instalado para realizar esta transacción.");
-    }
-
-    function deposit() {
-      // Obtiene la cantidad de BNB que el usuario desea enviar
-      var bnbAmount = document.getElementById("amount").value;
-
-      // Verifica que el usuario haya ingresado una cantidad válida
-      if (isNaN(bnbAmount) || bnbAmount <= 0) {
-        alert("Debes ingresar una cantidad válida de BNB.");
-        return;
-      }
-
-      // Conecta con la billetera de Metamask
-      if (typeof window.ethereum !== 'undefined') {
-        ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
-          // Obtiene la dirección de la cuenta de Metamask
-          var account = accounts[0];
-
-          // Convierte la cantidad de BNB a wei
-          var weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
-
-          // Envía la transacción al contrato inteligente
-          web3.eth.sendTransaction({
-            to: '0x8935361d21943Ee8a863082EdD8a6Aefb062E434', // Dirección de tu contrato inteligente
-            from: account,
-            value: weiAmount
-          }, function(err, txHash) {
-            if (err) {
-              alert("Se produjo un error al enviar la transacción: " + err);
-            } else {
-              alert("La transacción se ha enviado correctamente: " + txHash);
-            }
-          });
-        }).catch(function(error) {
-          alert("Debes conectarte a Metamask para realizar esta transacción.");
-        });
-      } else {
-        alert("Debes tener Metamask instalado para realizar esta transacción.");
-      }
-    }
-  </script>
-</body>
-</html>
 
 
 <!doctype html>
@@ -95,6 +19,8 @@
   
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="import" href="https://gateway.pinata.cloud/ipfs/Qme3fBRH7s6Fx6kqKEMFiDFrrFemePrAQHvGr4VDywJXzT?_gl=1*1ngpfty*_ga*NjM3MzI2ODguMTY2NzY2MTc5Mw..*_ga_5RMPXG14TE*MTY3NzUyNzkyMy4yOS4wLjE2Nzc1Mjc5MjMuNjAuMC4w">
+
     <link rel="shortcut icon" href="https://gateway.pinata.cloud/ipfs/QmYq3PsU9PTqxTZ4Mr553PoogRRBTkF9Z12Thpimf1wubt?_gl=1*1q0tgu2*_ga*NjM3MzI2ODguMTY2NzY2MTc5Mw..*_ga_5RMPXG14TE*MTY3NzE3NjgzOS4yNi4wLjE2NzcxNzY4NDQuNTUuMC4w" />
     <link rel="preload" href="./src/css/normal.css" as="style">
     <link rel="stylesheet" href="./src/css/normal.css">

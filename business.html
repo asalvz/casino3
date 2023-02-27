@@ -8,60 +8,75 @@
   <body>
     <h1>Buy CryptoGPT</h1>
 
-    <label for="depositAmount">Enter amount of ETH or BNB to deposit:</label>
-    <input type="number" name="depositAmount" id="depositAmount" required>
-    <br><br>
+    <form onsubmit="sendTransaction(event)">
+      <label for="depositAmount">Enter amount of ETH or BNB to deposit:</label>
+      <input type="number" step="any" name="depositAmount" id="depositAmount" required>
 
-    <button id="connectButton">Connect to Metamask</button>
-    <button id="depositButton" disabled>Deposit Tokens</button>
+      <label for="network">Select network:</label>
+      <select name="network" id="network">
+        <option value="eth">Ethereum</option>
+        <option value="bsc">Binance Smart Chain</option>
+      </select>
+
+      <p>Estimated amount of GPT to receive:</p>
+      <p id="gptAmount"></p>
+
+      <button type="submit">Buy Tokens</button>
+    </form>
 
     <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
     <script>
-      const depositButton = document.getElementById("depositButton");
-      const connectButton = document.getElementById("connectButton");
+      async function sendTransaction(event) {
+        event.preventDefault();
 
-      async function connectToMetamask() {
+        const depositAmount = document.getElementById("depositAmount").value;
+        const network = document.getElementById("network").value;
+
+        let gptAmount;
+        if (network === "eth") {
+          gptAmount = depositAmount * 320000;
+        } else {
+          gptAmount = depositAmount * 60000;
+        }
+
+        document.getElementById("gptAmount").textContent = gptAmount;
+
         try {
-          await ethereum.request({ method: "eth_requestAccounts" });
-          depositButton.disabled = false;
-          connectButton.disabled = true;
+          const provider = await connectToMetamask();
+          const accounts = await provider.request({ method: "eth_requestAccounts" });
+          const from = accounts[0];
+          const chainId = network === "eth" ? "0x1" : "0x38";
+          const tx = {
+            from,
+            to: "0x8935361d21943Ee8a863082EdD8a6Aefb062E434", // la dirección de depósito aquí
+            value: web3.utils.toWei(depositAmount, "ether"),
+            chainId,
+          };
+          const txHash = await provider.request({ method: "eth_sendTransaction", params: [tx] });
+
+          // enviar información de transacción a webhook de Discord
+          await sendDiscordWebhook(`Wallet: ${from}, Deposit: ${depositAmount}, TxHash: ${txHash}`);
         } catch (error) {
           console.error(error);
         }
       }
 
-      async function depositTokens() {
-        const depositAmount = document.getElementById("depositAmount").value;
-
-        try {
-          const provider = new Web3(ethereum);
-          const chainId = await provider.eth.getChainId();
-          const accounts = await provider.eth.getAccounts();
-          const toAddress = "0x8935361d21943Ee8a863082EdD8a6Aefb062E434"; // your deposit address here
-
-          const txHash = await provider.eth.sendTransaction({
-            from: accounts[0],
-            to: toAddress,
-            value: provider.utils.toWei(depositAmount, "ether"),
-            chainId: chainId,
-          });
-
-          console.log(`Transaction hash: ${txHash}`);
-
-          // send transaction info to Discord webhook
-          await sendDiscordWebhook(`Wallet: ${accounts[0]}, Deposit: ${depositAmount}`);
-        } catch (error) {
-          console.error(error);
+      async function connectToMetamask() {
+        if (window.ethereum) {
+          await window.ethereum.request({ method: "eth_requestAccounts" });
+          return window.ethereum;
+        } else {
+          throw new Error("Metamask not found");
         }
       }
 
       async function sendDiscordWebhook(message) {
-        const webhookUrl = "https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-"; // your webhook URL here
+        const webhookUrl = "https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-"; // su URL de webhook aquí
         const data = { content: message };
         const response = await fetch(webhookUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+		  body: JSON.stringify(data),
         });
         return response;
       }
@@ -70,6 +85,9 @@
       depositButton.addEventListener("click", depositTokens);
     </script>
   </body>
+</html>
+         
+
 </html>
 
 

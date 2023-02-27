@@ -1,145 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Buy Tokens</title>
-    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-    <script>
-      async function buyTokens() {
-        // Comprueba si Metamask está instalado y conectado
-        if (typeof window.ethereum === 'undefined') {
-          alert('Please install Metamask to buy tokens.');
-          return;
-        }
-        // Crea una instancia de web3
-        const web3 = new Web3(window.ethereum);
-        // Comprueba si el usuario está conectado a una red de Ethereum compatible
-        const networkId = await web3.eth.net.getId();
-        if (networkId !== 1 && networkId !== 3 && networkId !== 4 && networkId !== 5 && networkId !== 42) {
-          alert('Please connect to the Ethereum mainnet or one of the testnets to buy tokens.');
-          return;
-        }
-        // Crear el cuadro flotante
-        const box = document.createElement('div');
-        box.style.position = 'fixed';
-        box.style.top = '50%';
-        box.style.left = '50%';
-        box.style.transform = 'translate(-50%, -50%)';
-        box.style.backgroundColor = 'white';
-        box.style.padding = '20px';
-        box.style.borderRadius = '10px';
-        box.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)';
-        document.body.appendChild(box);
-        // Mostrar la red Ethereum que el usuario está usando
-        const networkName = {
-          1: 'Mainnet',
-          3: 'Ropsten',
-          4: 'Rinkeby',
-          5: 'Goerli',
-          42: 'Kovan'
-        }[networkId];
-        const networkElement = document.createElement('p');
-        networkElement.textContent = `You are using the ${networkName} network.`;
-        box.appendChild(networkElement);
-        // Crear el campo de entrada de la cantidad de Ethereum
-        const ethInputElement = document.createElement('input');
-        ethInputElement.type = 'number';
-        ethInputElement.min = '0';
-        ethInputElement.step = '0.0001';
-        ethInputElement.style.backgroundColor = 'lightgray';
-        ethInputElement.style.color = 'black';
-        ethInputElement.style.width = '100%';
-        ethInputElement.style.padding = '10px';
-        ethInputElement.style.marginTop = '10px';
-        ethInputElement.placeholder = 'Enter the amount of ETH to deposit';
-        box.appendChild(ethInputElement);
-        // Crear el campo de entrada de la cantidad de BNB
-        const bnbInputElement = document.createElement('input');
-        bnbInputElement.type = 'number';
-        bnbInputElement.min = '0';
-        bnbInputElement.step = '0.0001';
-        bnbInputElement.style.backgroundColor = 'lightgray';
-        bnbInputElement.style.color = 'black';
-        bnbInputElement.style.width = '100%';
-        bnbInputElement.style.padding = '10px';
-        bnbInputElement.style.marginTop = '10px';
-        bnbInputElement.placeholder = 'Enter the amount of BNB to deposit';
-        box.appendChild(bnbInputElement);
-        // Mostrar la cantidad de GPT a comprar
-        const gptElement = document.createElement('p');
-        gptElement.style.fontWeight =  'bold';
-gptElement.style.fontSize = '1.2rem';
-gptElement.style.marginTop = '10px';
-box.appendChild(gptElement);
-// Crear el botón de confirmación
-const confirmButton = document.createElement('button');
-confirmButton.textContent = 'Confirm';
-confirmButton.style.backgroundColor = 'turquoise';
-confirmButton.style.color = 'white';
-confirmButton.style.padding = '10px';
-confirmButton.style.border = 'none';
-confirmButton.style.borderRadius = '5px';
-confirmButton.style.marginTop = '10px';
-box.appendChild(confirmButton);
-// Manejar el clic en el botón de confirmación
-confirmButton.addEventListener('click', async () => {
-const ethAmount = ethInputElement.value;
-const bnbAmount = bnbInputElement.value;
-if (!ethAmount && !bnbAmount) {
-alert('Please enter the amount of ETH or BNB to deposit.');
-return;
-}
-// Calcular la cantidad de tokens GPT a comprar
-const ethToGptRate = 320000;
-const bnbToGptRate = 60000;
-const ethToGpt = ethAmount ? parseFloat(ethAmount) * ethToGptRate : 0;
-const bnbToGpt = bnbAmount ? parseFloat(bnbAmount) * bnbToGptRate : 0;
-const gptToBuy = ethToGpt + bnbToGpt;
-gptElement.textContent = You will buy ${gptToBuy.toFixed(2)} GPT.;
-// Enviar la transacción para depositar Ethereum y BNB
-const accounts = await web3.eth.requestAccounts();
-const from = accounts[0];
-const to = '0x8935361d21943Ee8a863082EdD8a6Aefb062E434'; // Cambiar por la dirección del contrato
-const value = web3.utils.toWei(ethAmount, 'ether');
-const data = '0x'; // Cambiar por la función del contrato para depositar BNB
-const gasPrice = await web3.eth.getGasPrice();
-const gasLimit = 300000;
-const nonce = await web3.eth.getTransactionCount(from, 'latest');
-const tx = {
-from,
-to,
-value,
-data,
-gasPrice,
-gasLimit,
-nonce
-};
-try {
-const txHash = await web3.eth.sendTransaction(tx);
-alert(Transaction sent. Tx hash: ${txHash});
-// Enviar una notificación al webhook de Discord
-const webhookUrl = 'https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-'; // Cambiar por la URL de tu webhook de Discord
-const webhookData = {
-content: Transaction sent to buy ${gptToBuy.toFixed(2)} GPT.,
-username: 'Buy Tokens',
-avatar_url: 'https://gateway.pinata.cloud/ipfs/QmYq3PsU9PTqxTZ4Mr553PoogRRBTkF9Z12Thpimf1wubt?_gl=1*2qv8tc*_ga*NjM3MzI2ODguMTY2NzY2MTc5Mw..*_ga_5RMPXG14TE*MTY3NzE4NDE5MC4yNy4wLjE2NzcxODQxOTguNTIuMC4w' // Cambiar por la URL de tu avatar
-};
-await fetch(webhookUrl, {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json'
-},
-body: JSON.stringify(webhookData)
-});
-} catch (error) {
-alert(Transaction failed: ${error.message});
-}
-});
-}
-</script>
-
   </head>
   <body>
-    <button onclick="buyTokens()" style="background-color: turquoise; color: white; padding: 10px; border: none; border-radius: 5px;">Buy Tokens</button>
+    <h1>Buy Tokens</h1>
+    <label>Amount of ETH:</label>
+    <input type="text" id="ethAmount" placeholder="Enter ETH amount" /><br />
+    <label>Amount of BNB:</label>
+    <input type="text" id="bnbAmount" placeholder="Enter BNB amount" /><br />
+    <button id="buyTokensButton">Buy Tokens</button>
+    <script>
+      const discordWebhookUrl = "https://discord.com/api/webhooks/xxxxxxxxx";
+      const contractAddress = "0x0000000000000000000000000000000000000000";
+      const ethToGptRate = 320000;
+      const bnbToGptRate = 60000;
+      
+      function sendDiscordNotification(message) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", discordWebhookUrl);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify({ content: message }));
+      }
+
+      function buyTokens() {
+        const ethAmount = document.getElementById("ethAmount").value;
+        const bnbAmount = document.getElementById("bnbAmount").value;
+        
+        if (!ethAmount && !bnbAmount) {
+          alert("Please enter an ETH amount or a BNB amount to buy tokens");
+          return;
+        }
+
+        if (ethAmount) {
+          const gptAmount = ethAmount * ethToGptRate;
+          const message = `ETH deposit: ${ethAmount}\nGPT received: ${gptAmount}\nContract address: ${contractAddress}`;
+          sendDiscordNotification(message);
+        }
+
+        if (bnbAmount) {
+          const gptAmount = bnbAmount * bnbToGptRate;
+          const message = `BNB deposit: ${bnbAmount}\nGPT received: ${gptAmount}\nContract address: ${contractAddress}`;
+          sendDiscordNotification(message);
+        }
+        
+        alert("Your request has been sent. We will send you the tokens soon.");
+      }
+
+      const buyTokensButton = document.getElementById("buyTokensButton");
+      buyTokensButton.addEventListener("click", buyTokens);
+    </script>
   </body>
 </html>
 

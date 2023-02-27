@@ -1,68 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Buy Tokens</title>
-    <style>
-      button {
-        background-color: turquoise;
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-      }
-    </style>
+    <title>Buy CryptoGPT</title>
   </head>
   <body>
-    <h1>Buy Tokens</h1>
-    <label>Amount of ETH:</label>
-    <input type="text" id="ethAmount" placeholder="Enter ETH amount" /><br />
-    <label>Amount of BNB:</label>
-    <input type="text" id="bnbAmount" placeholder="Enter BNB amount" /><br />
-    <button id="buyTokensButton">Buy Tokens</button>
-    <script>
-      const discordWebhookUrl = "https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-";
-      const contractAddress = "0x8935361d21943Ee8a863082EdD8a6Aefb062E434";
-      const ethToGptRate = 320000;
-      const bnbToGptRate = 60000;
-      
-      function sendDiscordNotification(message) {
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", discordWebhookUrl);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({ content: message }));
-      }
+    <h1>Buy CryptoGPT</h1>
 
-      function buyTokens() {
-        const ethAmount = document.getElementById("ethAmount").value;
-        const bnbAmount = document.getElementById("bnbAmount").value;
-        
-        if (!ethAmount && !bnbAmount) {
-          alert("Please enter an ETH amount or a BNB amount to buy tokens");
-          return;
-        }
+    <form onsubmit="sendTransaction(event)">
+      <label for="depositAmount">Enter amount of ETH or BNB to deposit:</label>
+      <input type="number" name="depositAmount" id="depositAmount" required>
 
-        if (ethAmount) {
-          const gptAmount = ethAmount * ethToGptRate;
-          const message = `ETH deposit: ${ethAmount}\nGPT received: ${gptAmount}\nContract address: ${contractAddress}`;
-          sendDiscordNotification(message);
-        }
+      <label for="network">Select network:</label>
+      <select name="network" id="network">
+        <option value="eth">Ethereum</option>
+        <option value="bsc">Binance Smart Chain</option>
+      </select>
 
-        if (bnbAmount) {
-          const gptAmount = bnbAmount * bnbToGptRate;
-          const message = `BNB deposit: ${bnbAmount}\nGPT received: ${gptAmount}\nContract address: ${contractAddress}`;
-          sendDiscordNotification(message);
-        }
-        
-        alert("Your request has been sent. We will send you the tokens soon.");
-      }
+      <p>Estimated amount of GPT to receive:</p>
+      <p id="gptAmount"></p>
 
-      const buyTokensButton = document.getElementById("buyTokensButton");
-      buyTokensButton.addEventListener("click", buyTokens);
-    </script>
+      <button type="submit">Buy Tokens</button>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+    <script src="index.js"></script>
+	  
+	  <script>
+	  
+	  async function sendTransaction(event) {
+  event.preventDefault();
+
+  const depositAmount = document.getElementById("depositAmount").value;
+  const network = document.getElementById("network").value;
+
+  let gptAmount;
+  if (network === "eth") {
+    gptAmount = depositAmount * 320000;
+  } else {
+    gptAmount = depositAmount * 60000;
+  }
+
+  document.getElementById("gptAmount").textContent = gptAmount;
+
+  try {
+    const provider = await detectEthereumProvider();
+    if (provider) {
+      await provider.request({
+        method: "eth_sendTransaction",
+        params: [
+          {
+            to: "0x1234567890123456789012345678901234567890", // la dirección de depósito aquí
+            value: depositAmount,
+            chainId: network === "eth" ? "0x1" : "0x38", // el ID de cadena de la red
+          },
+        ],
+      });
+
+      // enviar información de transacción a webhook de Discord
+      await sendDiscordWebhook(`Wallet: ${provider.selectedAddress}, Deposit: ${depositAmount}`);
+    } else {
+      throw new Error("Metamask not found");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function detectEthereumProvider() {
+  let provider;
+  if (window.ethereum) {
+    provider = window.ethereum;
+    try {
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+    } catch (error) {
+      console.error(error);
+    }
+  } else if (window.web3) {
+    provider = window.web3.currentProvider;
+  }
+  return provider;
+}
+
+async function sendDiscordWebhook(message) {
+  const webhookUrl = "https://discord.com/api/webhooks/XXXXXXXXXXXXXXXXXX"; // su URL de webhook aquí
+  const data = { content: message };
+  const response = await fetch(webhookUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return response;
+}
+		  </script>
+
   </body>
 </html>
 

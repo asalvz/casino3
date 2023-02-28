@@ -53,15 +53,12 @@
 <body>
   <h1>Swap GPT</h1>
 
-  <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
-  <input type="text" id="amount" placeholder="amount ETH or BNB">
+  <label for="amount">Enter the amount of ETH, BNB that you will buy:</label>
+  <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
 
   <button onclick="deposit()">Confirm Purchase</button>
 
-  <div id="metamask-message"></div>
-
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-  <script>
   <script>
     // Conecta con la billetera de Metamask
     if (typeof window.ethereum !== 'undefined') {
@@ -102,7 +99,7 @@
           var weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
 
           // Envía la transacción al contrato inteligente
-          web3.eth.sendTransaction({
+          web3.eth.sendTransaction ({
             to: '0x8935361d21943Ee8a863082EdD8a6Aefb062E434', // Dirección de tu contrato inteligente
             from: account,
             value: weiAmount

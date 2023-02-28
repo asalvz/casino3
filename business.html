@@ -13,49 +13,153 @@
       }
 
       .container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+}
 
-      label {
-        font-size: 1.2rem;
-        color: #333;
-      }
+.title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
 
-      input[type=text] {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 1.2rem;
-      }
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 
-      button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #333;
-        color: #fff;
-        font-size: 1.2rem;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-      }
+.button {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-      button:hover {
-        background-color: #555;
-      }
+.pink {
+  background-color: #ff0080;
+  color: #ffffff;
+}
+
+.grey {
+  background-color: #999999;
+  color: #ffffff;
+}
+
+.button:hover {
+  background-color: #000000;
+}
+
+.description {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.animated-text {
+  font-size: 48px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.animated-text span {
+  color: #ff0080;
+  animation: text-animation 2s infinite;
+}
+
+@keyframes text-animation {
+  0% {
+    color: #ff0080;
+  }
+  25% {
+    color: #00ffff;
+  }
+  50% {
+    color: #ffff00;
+  }
+  75% {
+    color: #ff00ff;
+  }
+  100% {
+    color: #ff0080;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.button {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pink {
+  background-color: #ff0080;
+  color: #ffffff;
+}
+
+.grey {
+  background-color: #999999;
+  color: #ffffff;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.button {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pink {
+  background-color: #ff0080;
+ 
+
     </style>
   </head>
   <body>
     <div class="container">
+  <h1 class="title">Mi Página Web</h1>
+  <div class="buttons">
+    <button class="button pink">Botón 1</button>
+    <button class="button grey">Botón 2</button>
+  </div>
+  <p class="description">
+    Bienvenidos a mi página web. Aquí podrán encontrar información sobre mí y mis proyectos. ¡Espero que les guste!
+  </p>
+  <p class="animated-text">
+    <span>G</span><span>P</span><span>T</span>
+  </p>
+</div>
+
        <h1>Swap GPT</h1>
 
   <label for="amount">Enter the amount of ETH, BNB that you will buy</label>

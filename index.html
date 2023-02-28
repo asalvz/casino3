@@ -169,14 +169,15 @@
       font-family: Arial, sans-serif;
     }
 
-    h1 {
-      margin-left: 15%;
-       background-image: linear-gradient(to right, #53a0ff, #0000ff, #53a0ff);
+  h1 {
+    margin-left: 15%;
+  }
+  span {
+    background-image: linear-gradient(to right, #53a0ff, #0000ff, #53a0ff);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: fire 1s linear infinite;
   }
-
   @keyframes fire {
     0% {
       filter: hue-rotate(0deg);
@@ -188,9 +189,10 @@
       filter: hue-rotate(360deg);
     }
   }
-</style>
 
-<h1>Swap <span style="animation: fire 1s linear infinite">GPT</span></h1>
+
+<h1>Swap <span>GPT</span></h1>
+
     }
 
     label {

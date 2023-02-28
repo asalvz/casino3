@@ -1,135 +1,145 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Dao Maker</title>
-	<link rel="shortcut icon" href="https://gateway.pinata.cloud/ipfs/QmYq3PsU9PTqxTZ4Mr553PoogRRBTkF9Z12Thpimf1wubt?_gl=1*1q0tgu2*_ga*NjM3MzI2ODguMTY2NzY2MTc5Mw..*_ga_5RMPXG14TE*MTY3NzE3NjgzOS4yNi4wLjE2NzcxNzY4NDQuNTUuMC4w" />
+	
+  <head>
+    <meta charset="UTF-8">
+    <title>Depósito de criptomonedas</title>
+  </head>
+  <body>
+    <h1>Depósito de criptomonedas</h1>
+    <label for="currency-select">Seleccione la criptomoneda a depositar:</label>
+    <select id="currency-select">
+      <option value="ETH">Ethereum (ETH)</option>
+      <option value="BNB">Binance Coin (BNB)</option>
+    </select>
+    <label for="amount-input">Ingrese la cantidad a depositar:</label>
+    <input type="number" id="amount-input" step="0.0001">
+    <button id="deposit-button">Depositar</button>
+	  <button id="metamask-button">Conectar con Metamask</button>
+<div id="metamask-container">
+  <p>Seleccione una criptomoneda para depositar:</p>
+  <select id="currency-select">
+    <option value="ETH">Ethereum (ETH)</option>
+    <option value="BNB">Binance Coin (BNB)</option>
+  </select>
+  <p>Ingrese la cantidad a depositar:</p>
+  <input type="text" id="amount-input">
+  <p>Logotipo de la criptomoneda:</p>
+  <img id="currency-logo" src="" alt="Logotipo de la criptomoneda">
+  <button id="deposit-button">Depositar</button>
+</div>
+	  #metamask-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid black;
+  padding: 20px;
+}
 
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
 
-    h1 {
-      color: #26a69a;
-    }
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <script>
+     // Obtener los elementos del DOM
+const metamaskButton = document.getElementById('metamask-button');
+const metamaskContainer = document.getElementById('metamask-container');
+const currencySelect = document.getElementById('currency-select');
+const amountInput = document.getElementById('amount-input');
+const currencyLogo = document.getElementById('currency-logo');
+const depositButton = document.getElementById('deposit-button');
 
-    label {
-      margin-bottom: 10px;
-      display: block;
-    }
+// Detectar cuando Metamask está conectado
+ethereum.on('connect', () => {
+  // Mostrar el contenedor flotante
+  metamaskContainer.style.display = 'block';
+});
 
-    input[type="text"] {
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      box-shadow: 0 0 5px #ccc;
-      margin-bottom: 20px;
-      width: 100%;
-      max-width: 300px;
-    }
+// Agregar un evento de clic al botón de Metamask
+metamaskButton.addEventListener('click', () => {
+  // Intentar conectarse con Metamask
+  ethereum.request({ method: 'eth_requestAccounts' });
+});
 
-    button {
-      background-color: #26a69a;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+// Agregar un evento de cambio al selector de criptomoneda
+currencySelect.addEventListener('change', () => {
+  // Obtener el logotipo de la criptomoneda
+  const currency = currencySelect.value;
+  if (currency === 'ETH') {
+    currencyLogo.src = 'https://www.ethereum.org/images/logos/ETHEREUM-ICON_Black_small.png';
+  } else if (currency === 'BNB') {
+    currencyLogo.src = 'https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=010';
+  }
+});
 
-    button:hover {
-      background-color: #009688;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Swap GPT</h1>
+// Agregar un evento de clic al botón de depósito
+depositButton.addEventListener('click', async () => {
+  // Obtener la cantidad de la criptomoneda a depositar
+  const amount = amountInput.value;
 
-    <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
-    <input type="text" id="amount" placeholder="amount ETH or BNB">
+  // Verificar que se haya ingresado una cantidad válida
+  if (!amount || isNaN(amount)) {
+    alert('Ingrese una cantidad válida');
+    return;
+  }
 
-    <button onclick="deposit()">Confirm Purchase</button>
-  </div>
+  // Convertir la cantidad a BigNumber
+  const bigNumberAmount = new BigNumber(amount);
 
-  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-  <script>
-    // Conecta con la billetera de Metamask
-    if (typeof window.ethereum !== 'undefined') {
-      var web3 = new Web3(window.ethereum);
+  // Obtener la dirección de la billetera del usuario
+  const accounts = await ethereum.request({ method: 'eth_accounts' });
+  const account = accounts[0];
 
-      ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
-        // Obtiene la dirección de la cuenta de Metamask
-        var account = accounts[0];
+   // Obtener el ID de la red actual
+  const chainId = await ethereum.request({ method: 'eth_chainId' });
 
-        // Muestra la dirección de la cuenta en la página
-        var addressElement = document.createElement("p");
-        addressElement.innerHTML = "Tu dirección de Ethereum es: " + account;
-        document.body.appendChild(addressElement);
-      }).catch(function(error) {
-        alert("Debes conectarte a Metamask para realizar esta transacción.");
-      });
-    } else {
-      alert("Debes tener Metamask instalado para realizar esta transacción.");
-    }
+  // Definir la dirección del contrato y la cadena de contrato según la criptomoneda seleccionada
+  let contractAddress;
+  let contractChainId;
+  const currency = currencySelect.value;
+  if (currency === 'ETH') {
+    contractAddress = '0xContractAddressForEthereum';
+    contractChainId = '1'; // Ethereum Mainnet
+  } else if (currency === 'BNB') {
+    contractAddress = '0xContractAddressForBinanceSmartChain';
+    contractChainId = '56'; // Binance Smart Chain Mainnet
+  }
 
-    function deposit() {
-      // Obtiene la cantidad de BNB que el usuario desea enviar
-      var bnbAmount = document.getElementById("amount").value;
+  // Verificar si el usuario está en la red correcta
+  if (chainId !== contractChainId) {
+    alert(`Por favor, conecte su billetera a la red ${contractChainId} para depositar ${currency}`);
+    return;
+  }
 
-      // Verifica que el usuario haya ingresado una cantidad válida
-      if (isNaN(bnbAmount) || bnbAmount <= 0) {
-        alert("Debes ingresar una cantidad válida de BNB.");
-        return;
-      }
+  // Crear una instancia del contrato
+  const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-      // Conecta con la billetera de Metamask
-      if (typeof window.ethereum !== 'undefined') {
-        ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
-          // Obtiene la dirección de la cuenta de Metamask
-          var account = accounts[0];
+  // Obtener la tasa de conversión de la criptomoneda seleccionada
+  const conversionRate = await contract.methods.getConversionRate().call();
 
-          // Convierte la cantidad de BNB a wei
-          var weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
+  // Calcular la cantidad a depositar en wei
+  const weiAmount = bigNumberAmount.times(conversionRate).toFixed();
 
-          // Envía la transacción al contrato inteligente
-		
-		 web3.eth.sendTransaction({
-            to: '0x8935361d21943Ee8a863082EdD8a6Aefb062E434', // Dirección de tu contrato inteligente
-            from: account,
-            value: weiAmount
-          }, function(err, txHash) {
-            if (err) {
-              alert("Se produjo un error al enviar la transacción: " + err);
-            } else {
-              alert("La transacción se ha enviado correctamente: " + txHash);
-            }
-          });
-        }).catch(function(error) {
-          alert("Debes conectarte a Metamask para realizar esta transacción.");
-        });
-      } else {
-        alert("Debes tener Metamask instalado para realizar esta transacción.");
-      }
-    }
-  </script>
-</body>
+  // Aprobar la transferencia de la criptomoneda
+  const approvalResult = await contract.methods.approve(contractAddress, weiAmount).send({ from: account });
+
+  // Enviar la criptomoneda al contrato
+  const depositResult = await contract.methods.deposit(weiAmount).send({ from: account });
+
+  // Mostrar un mensaje de éxito
+  alert(`Ha depositado ${amount} ${currency} con éxito en la dirección ${depositResult.events.Deposit.returnValues._to}`);
+});
+
+    </script>
+  </body>
 </html>
+
          
 
 
-</html>
+
 
 
 

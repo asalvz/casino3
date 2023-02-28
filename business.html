@@ -2,60 +2,80 @@
 <html>
 <head>
   <meta charset="UTF-8">
- <head>
-  <meta charset="UTF-8">
   <title>Dao Maker</title>
   <style>
+    /* Estilos generales */
     body {
       font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      padding: 20px;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
     }
+
     h1 {
-      color: #333;
+      color: #005b78;
+      margin-top: 20px;
+      text-align: center;
     }
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+
     label {
       display: block;
-      margin-bottom: 10px;
+      font-size: 16px;
+      margin-top: 20px;
     }
+
     input[type="text"] {
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      width: 300px;
-      margin-bottom: 10px;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
+      font-size: 16px;
       padding: 10px;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      background-color: #005b78;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       cursor: pointer;
       transition: background-color 0.3s ease;
-     
-}
-    button:active {
-      background-color: #005b78;
-}
     }
-    button:hover {
-      background-color: #3e8e41;
+
+    button:hover,
+    button:focus {
+      background-color: #147693;
+    }
+
+    /* Estilos específicos para Metamask */
+    #metamask-message {
+      text-align: center;
+      margin-top: 20px;
     }
   </style>
-  
-
-</head>
-
 </head>
 <body>
   <h1>Swap GPT</h1>
 
   <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
-  <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
+  <input type="text" id="amount" placeholder="amount ETH or BNB">
 
-  <button onclick="deposit()" style="background-color: #0066CC; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">Confirmar compra</button>
-</button>
+  <button onclick="deposit()">Confirm Purchase</button>
+
+  <div id="metamask-message"></div>
 
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script>

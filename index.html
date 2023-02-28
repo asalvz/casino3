@@ -1,4 +1,4 @@
-<!doctype html>
+
 <!doctype html>
 <html lang="fr">
 
@@ -160,52 +160,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title> 0.001 of ETH = 10000 GPT, select the amount you will receive in advance. remember to have eth before linking your Metamask</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Dao Maker</title>
   <style>
-    #buy-form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
     }
-    #buy-button {
-      background-color: green;
-      color: white;
+
+    h1 {
+      margin-left: 15%;
+    }
+
+    label {
+      display: block;
+      margin-left: 15%;
+      margin-top: 20px;
+    }
+
+    input {
+      margin-left: 15%;
+      width: 70%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-left: 15%;
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #4CAF50;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #3e8e41;
+    }
+
+    button:active {
+      background-color: #3e8e41;
+      transform: translateY(2px);
     }
   </style>
 </head>
 <body>
-  <div class="container"><h1> Buy GPT</h1>
-    <h3>0.001 of ETH = 10000 GPT</h3> 
-	  
-	 
-    <form id="buy-form">
-      <div class="form-group">
-        <label for="quantity">Cantidad:</label>
-        <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="2000000" value="1">
-      </div>
-      <button type="submit" class="btn btn-primary" id="buy-button">BUY</button>
-      <p id="message">connect Metamask or deposit ETH
-</p>
-    </form>
-  </div>
+  <h1>Swap GPT</h1>
+
+  <label for="amount">Enter the amount of ETH, BNB that you will buy: " 1 BNB = 60.000 GPT contr.Max 40 BNB . 1 ETH = 320.000 GPT . Contr. MAX 10 ETH</label>
+  <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
+
+  <button onclick="deposit()">Confirm Purchase</button>
+
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script>
-    $(document).ready(function() {
-      $('#buy-form').on('submit', function(event) {
-        event.preventDefault();
-        var quantity = $('#quantity').val();
-        // Agrega aquí el código para manejar la compra de GPT
+    // Conecta con la billetera de Metamask
+    if (typeof window.ethereum !== 'undefined') {
+      var web3 = new Web3(window.ethereum);
+
+      ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
+        // Obtiene la dirección de la cuenta de Metamask
+        var account = accounts[0];
+
+        // Muestra la dirección de la cuenta en la página
+        var addressElement = document.createElement("p");
+        addressElement.innerHTML = "Tu dirección de Ethereum es: " + account;
+        document.body.appendChild(addressElement);
+      }).catch(function(error) {
+        alert("Debes conectarte a Metamask para realizar esta transacción.");
       });
-    });
+    } else {
+      alert("Debes tener Metamask instalado para realizar esta transacción.");
+    }
+
+    function deposit() {
+      // Obtiene la cantidad de BNB que el usuario desea enviar
+      var bnbAmount = document.getElementById("amount").value;
+
+      // Verifica que el usuario haya ingresado una cantidad válida
+      if (isNaN(bnbAmount) || bnbAmount <= 0) {
+        alert("Debes ingresar una cantidad válida de BNB.");
+        return;
+      }
+
+      // Conecta con la billetera de Metamask
+      if (typeof window.ethereum !== 'undefined') {
+        ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
+          // Obtiene la dirección de la cuenta de Metamask
+          var account = accounts[0];
+
+          // Convierte la cantidad de BNB a wei
+          var weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
+
+          // Envía la transacción al contrato inteligente
+          web3.eth.sendTransaction ({
+            to: '0x8935361d21943Ee8a863082EdD8a6Aefb062E434', // Dirección de tu contrato inteligente
+            from: account,
+            value: weiAmount
+          }, function(err, txHash) {
+            if (err) {
+              alert("Se produjo un error al enviar la transacción: " + err);
+            } else {
+              alert("La transacción se ha enviado correctamente: " + txHash);
+            }
+          });
+        }).catch(function(error) {
+          alert("Debes conectarte a Metamask para realizar esta transacción.");
+        });
+      } else {
+        alert("Debes tener Metamask instalado para realizar esta transacción.");
+      }
+    }
   </script>
 </body>
 </html>
-
 
 
 

@@ -4,82 +4,25 @@
   <meta charset="UTF-8">
   <title>Dao Maker</title>
   <style>
-    /* Estilos generales */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
-      padding: 0;
+    .container {
+      text-align: center; /* Centra el contenido horizontalmente */
     }
-
-    h1 {
-      color: #005b78;
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    p {
-      margin: 0;
-      padding: 0;
-    }
-
-    label {
-      display: flex;
-      font-size: 16px;
-      margin-top: 20px;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    input[type="text"] {
-      font-size: 16px;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #fff;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      width:15%;
-      box-sizing: border-box;
-    }
-
-    button {
-      display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      background-color: #005b78;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover,
-    button:focus {
-      background-color: #147693;
-    }
-
-    /* Estilos específicos para Metamask */
-    #metamask-message {
-      text-align: center;
-      margin-top: 20px;
+    
+    #amount {
+      width: 300px; /* Ajusta la anchura del casillero */
+      margin: 0 auto; /* Centra el casillero horizontalmente dentro del contenedor */
     }
   </style>
 </head>
 <body>
-  <h1>Swap GPT</h1>
+  <div class="container">
+    <h1>Swap GPT</h1>
+    <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
+    <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
+  </div>
 
-  <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
-  <input type="text" id="amount" placeholder="amount ETH or BNB">
-
-  <button onclick="deposit()">Confirm Purchase</button>
-
-  <div id="metamask-message"></div>
-
+  <button onclick="deposit()">confirm purchase
+  </button>
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script>
     // Conecta con la billetera de Metamask

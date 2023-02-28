@@ -28,6 +28,7 @@
         width: 100%;
         box-sizing: border-box;
         max-width: 300px;
+        transition: border-color 0.3s ease-in-out;
       }
 
       input[type="text"]:focus {
@@ -53,6 +54,10 @@
 
       button:hover {
         background-color: #ff3b3b;
+      }
+
+      button:active {
+        background-color: #f02f71;
       }
 
       p {
@@ -100,6 +105,13 @@
     <button onclick="deposit()">Confirm Purchase</button>
 
     <p id="address"></p>
+
+    <script>
+      function deposit() {
+        document.getElementById("address").innerHTML = "Your purchase has been confirmed!";
+      }
+  
+
   
 
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>

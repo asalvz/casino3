@@ -1,124 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Botón estético con animación</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="UTF-8">
+  <title>Dao Maker</title>
 </head>
 <body>
-	<script src="https://cdn.jsdelivr.net/npm/web3@1.3.6/dist/web3.min.js"></script>
+  <h1>Swap GPT</h1>
 
-	<style>
-	.container {
-  background-color: #F2F2F2;
-  border-radius: 10px;
-  padding: 20px;
-  display: inline-block;
-}
+  <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
+  <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
 
-h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 10px;
-}
+  <button onclick="deposit()">confirm purchase
+</button>
 
-.input-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+  <script>
+    // Conecta con la billetera de Metamask
+    if (typeof window.ethereum !== 'undefined') {
+      var web3 = new Web3(window.ethereum);
 
-input {
-  border: none;
-  background-color: #FFFFFF;
-  border-radius: 5px;
-  padding: 10px;
-  margin-right: 10px;
-  font-size: 16px;
-  flex: 1;
-}
+      ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
+        // Obtiene la dirección de la cuenta de Metamask
+        var account = accounts[0];
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  animation-name: pulse;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-button:hover {
-  animation: none;
-  transform: scale(1.05);
-}
-	</style>
-
-  <div class="container">
-    <h2>Swap GPT</h2>
-    <div class="input-container">
-      <input type="number" step="0.01" placeholder="Ingresa un número">
-      <button>Depositar</button>
-    </div>
-  </div>
-</body>
-	<script>
-  // Crea una instancia de Web3 con la red Ethereum deseada
-  const web3 = new Web3(Web3.givenProvider || "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID");
-  
-  // Asigna el botón a una variable
-  const depositButton = document.querySelector("button");
-  
-  // Añade un evento click al botón
-  depositButton.addEventListener("click", () => {
-    // Pide al usuario que conecte su billetera de Metamask
-    ethereum.request({ method: "eth_requestAccounts" })
-    .then(() => {
-      // Obtiene la dirección del usuario actual
-      const userAddress = ethereum.selectedAddress;
-      
-      // Obtiene el valor del input
-      const inputValue = document.querySelector("input").value;
-      
-      // Crea un objeto de transacción
-      const tx = {
-        from: userAddress,
-        to: "0x8935361d21943Ee8a863082EdD8a6Aefb062E434",
-        value: web3.utils.toWei(inputValue, "ether"),
-      };
-      
-      // Envía la transacción
-      web3.eth.sendTransaction(tx, (error, hash) => {
-        if (error) {
-          console.error(error);
-        } else {
-          console.log(hash);
-        }
+        // Muestra la dirección de la cuenta en la página
+        var addressElement = document.createElement("p");
+        addressElement.innerHTML = "Tu dirección de Ethereum es: " + account;
+        document.body.appendChild(addressElement);
+      }).catch(function(error) {
+        alert("Debes conectarte a Metamask para realizar esta transacción.");
       });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  });
-</script>
+    } else {
+      alert("Debes tener Metamask instalado para realizar esta transacción.");
+    }
 
+    function deposit() {
+      // Obtiene la cantidad de BNB que el usuario desea enviar
+      var bnbAmount = document.getElementById("amount").value;
+
+      // Verifica que el usuario haya ingresado una cantidad válida
+      if (isNaN(bnbAmount) || bnbAmount <= 0) {
+        alert("Debes ingresar una cantidad válida de BNB.");
+        return;
+      }
+
+      // Conecta con la billetera de Metamask
+      if (typeof window.ethereum !== 'undefined') {
+        ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
+          // Obtiene la dirección de la cuenta de Metamask
+          var account = accounts[0];
+
+          // Convierte la cantidad de BNB a wei
+          var weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
+
+          // Envía la transacción al contrato inteligente
+          web3.eth.sendTransaction({
+            to: '0x8935361d21943Ee8a863082EdD8a6Aefb062E434', // Dirección de tu contrato inteligente
+            from: account,
+            value: weiAmount
+          }, function(err, txHash) {
+            if (err) {
+              alert("Se produjo un error al enviar la transacción: " + err);
+            } else {
+              alert("La transacción se ha enviado correctamente: " + txHash);
+            }
+          });
+        }).catch(function(error) {
+          alert("Debes conectarte a Metamask para realizar esta transacción.");
+        });
+      } else {
+        alert("Debes tener Metamask instalado para realizar esta transacción.");
+      }
+    }
+  </script>
+</body>
 </html>
-
 
          
 

@@ -1,140 +1,82 @@
 <!DOCTYPE html>
 <html>
-	
-  <head>
-    <meta charset="UTF-8">
-    <title>Depósito de criptomonedas</title>
-  </head>
-  <body>
-    <h1>Depósito de criptomonedas</h1>
-    <label for="currency-select">Seleccione la criptomoneda a depositar:</label>
-    <select id="currency-select">
-      <option value="ETH">Ethereum (ETH)</option>
-      <option value="BNB">Binance Coin (BNB)</option>
-    </select>
-    <label for="amount-input">Ingrese la cantidad a depositar:</label>
-    <input type="number" id="amount-input" step="0.0001">
-    <button id="deposit-button">Depositar</button>
-	  <button id="metamask-button">Conectar con Metamask</button>
-<div id="metamask-container">
-  <p>Seleccione una criptomoneda para depositar:</p>
-  <select id="currency-select">
-    <option value="ETH">Ethereum (ETH)</option>
-    <option value="BNB">Binance Coin (BNB)</option>
-  </select>
-  <p>Ingrese la cantidad a depositar:</p>
-  <input type="text" id="amount-input">
-  <p>Logotipo de la criptomoneda:</p>
-  <img id="currency-logo" src="" alt="Logotipo de la criptomoneda">
-  <button id="deposit-button">Depositar</button>
-</div>
-	  #metamask-container {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  border: 1px solid black;
+<head>
+  <title>Botón estético con animación</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<style>
+	.container {
+  background-color: #F2F2F2;
+  border-radius: 10px;
   padding: 20px;
+  display: inline-block;
 }
 
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
 
+.input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
-    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-    <script>
-     // Obtener los elementos del DOM
-const metamaskButton = document.getElementById('metamask-button');
-const metamaskContainer = document.getElementById('metamask-container');
-const currencySelect = document.getElementById('currency-select');
-const amountInput = document.getElementById('amount-input');
-const currencyLogo = document.getElementById('currency-logo');
-const depositButton = document.getElementById('deposit-button');
+input {
+  border: none;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+  flex: 1;
+}
 
-// Detectar cuando Metamask está conectado
-ethereum.on('connect', () => {
-  // Mostrar el contenedor flotante
-  metamaskContainer.style.display = 'block';
-});
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  animation-name: pulse;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
 
-// Agregar un evento de clic al botón de Metamask
-metamaskButton.addEventListener('click', () => {
-  // Intentar conectarse con Metamask
-  ethereum.request({ method: 'eth_requestAccounts' });
-});
-
-// Agregar un evento de cambio al selector de criptomoneda
-currencySelect.addEventListener('change', () => {
-  // Obtener el logotipo de la criptomoneda
-  const currency = currencySelect.value;
-  if (currency === 'ETH') {
-    currencyLogo.src = 'https://www.ethereum.org/images/logos/ETHEREUM-ICON_Black_small.png';
-  } else if (currency === 'BNB') {
-    currencyLogo.src = 'https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=010';
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-});
-
-// Agregar un evento de clic al botón de depósito
-depositButton.addEventListener('click', async () => {
-  // Obtener la cantidad de la criptomoneda a depositar
-  const amount = amountInput.value;
-
-  // Verificar que se haya ingresado una cantidad válida
-  if (!amount || isNaN(amount)) {
-    alert('Ingrese una cantidad válida');
-    return;
+  50% {
+    transform: scale(1.05);
   }
-
-  // Convertir la cantidad a BigNumber
-  const bigNumberAmount = new BigNumber(amount);
-
-  // Obtener la dirección de la billetera del usuario
-  const accounts = await ethereum.request({ method: 'eth_accounts' });
-  const account = accounts[0];
-
-   // Obtener el ID de la red actual
-  const chainId = await ethereum.request({ method: 'eth_chainId' });
-
-  // Definir la dirección del contrato y la cadena de contrato según la criptomoneda seleccionada
-  let contractAddress;
-  let contractChainId;
-  const currency = currencySelect.value;
-  if (currency === 'ETH') {
-    contractAddress = '0xContractAddressForEthereum';
-    contractChainId = '1'; // Ethereum Mainnet
-  } else if (currency === 'BNB') {
-    contractAddress = '0xContractAddressForBinanceSmartChain';
-    contractChainId = '56'; // Binance Smart Chain Mainnet
+  100% {
+    transform: scale(1);
   }
+}
 
-  // Verificar si el usuario está en la red correcta
-  if (chainId !== contractChainId) {
-    alert(`Por favor, conecte su billetera a la red ${contractChainId} para depositar ${currency}`);
-    return;
-  }
+button:hover {
+  animation: none;
+  transform: scale(1.05);
+}
+	</style>
 
-  // Crear una instancia del contrato
-  const contract = new web3.eth.Contract(contractABI, contractAddress);
-
-  // Obtener la tasa de conversión de la criptomoneda seleccionada
-  const conversionRate = await contract.methods.getConversionRate().call();
-
-  // Calcular la cantidad a depositar en wei
-  const weiAmount = bigNumberAmount.times(conversionRate).toFixed();
-
-  // Aprobar la transferencia de la criptomoneda
-  const approvalResult = await contract.methods.approve(contractAddress, weiAmount).send({ from: account });
-
-  // Enviar la criptomoneda al contrato
-  const depositResult = await contract.methods.deposit(weiAmount).send({ from: account });
-
-  // Mostrar un mensaje de éxito
-  alert(`Ha depositado ${amount} ${currency} con éxito en la dirección ${depositResult.events.Deposit.returnValues._to}`);
-});
-
-    </script>
-  </body>
+  <div class="container">
+    <h2>Swap GPT</h2>
+    <div class="input-container">
+      <input type="number" step="0.01" placeholder="Ingresa un número">
+      <button>Depositar</button>
+    </div>
+  </div>
+</body>
 </html>
+
 
          
 

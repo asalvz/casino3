@@ -4,26 +4,30 @@
   <meta charset="UTF-8">
   <title>Dao Maker</title>
   <style>
-    .container {
-      text-align: center; /* Centra el contenido horizontalmente */
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     
-    #amount {
-      width: 300px; /* Ajusta la anchura del casillero */
-      margin: 0 auto; /* Centra el casillero horizontalmente dentro del contenedor */
+    h1 {
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Swap GPT</h1>
+  <h1>Swap GPT</h1>
+
+  <div>
     <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
     <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
+
+    <button onclick="deposit()">confirm purchase</button>
   </div>
 
-  <button onclick="deposit()">confirm purchase
-  </button>
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+  <script>
   <script>
     // Conecta con la billetera de Metamask
     if (typeof window.ethereum !== 'undefined') {

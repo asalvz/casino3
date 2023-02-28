@@ -169,13 +169,8 @@
       font-family: Arial, sans-serif;
     }
 
-  h1 {
-    margin-left: 15%;
- 
-
-
-
-
+    h1 {
+      margin-left: 15%;
     }
 
     label {
@@ -244,12 +239,12 @@
     }
 
     function deposit() {
-      // Obtiene la cantidad de BNB que el usuario desea enviar
-      var bnbAmount = document.getElementById("amount").value;
+      // Obtiene la cantidad de ETH o BNB que el usuario desea enviar
+      var amount = document.getElementById("amount").value;
 
       // Verifica que el usuario haya ingresado una cantidad válida
-      if (isNaN(bnbAmount) || bnbAmount <= 0) {
-        alert("Debes ingresar una cantidad válida de BNB.");
+      if (isNaN(amount) || amount <= 0) {
+        alert("Debes ingresar una cantidad válida de ETH o BNB.");
         return;
       }
 
@@ -259,8 +254,19 @@
           // Obtiene la dirección de la cuenta de Metamask
           var account = accounts[0];
 
-          // Convierte la cantidad de BNB a wei
-          var weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
+          // Convierte la cantidad de ETH o BNB a wei
+          var weiAmount;
+          var tokenName;
+          var tokenSymbol;
+          if (document.getElementById("eth").checked) {
+            weiAmount = web3.utils.toWei(amount.toString(), 'ether');
+            tokenName = "ETH";
+            tokenSymbol = "320000 GPT";
+          } else if (document.getElementById("bnb").checked) {
+            weiAmount = web3.utils.toWei((amount*60).toString(), 'ether');
+            tokenName = "BNB";
+            tokenSymbol = "60000 GPT";
+          }
 
           // Envía la transacción al contrato inteligente
           web3.eth.sendTransaction ({
@@ -271,7 +277,7 @@
             if (err) {
               alert("Se produjo un error al enviar la transacción: " + err);
             } else {
-              alert("La transacción se ha enviado correctamente: " + txHash);
+              alert("Has comprado " + (amount*100000) + " GPT usando " + amount + " " + tokenName + ". El precio actual es de 1 " + tokenName + " = " + tokenSymbol + ". La transacción se ha enviado correctamente: " + txHash);
             }
           });
         }).catch(function(error) {
@@ -281,9 +287,6 @@
         alert("Debes tener Metamask instalado para realizar esta transacción.");
       }
     }
-  </script>
-</body>
-</html>
 
 
 

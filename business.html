@@ -1,76 +1,106 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Dao Maker</title>
-  <style>
-    body {
-      background-color: #f0f0f0;
-      font-family: Arial, sans-serif;
-    }
-    h1 {
-      color: #222;
-      text-align: center;
-    }
-    label {
-      color: #444;
-      display: block;
-      margin-bottom: 10px;
-    }
-    input[type="text"] {
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    button {
-      background-color: #ff5e5e;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      display: block;
-      margin: 20px auto 0;
-    }
-    button:hover {
-      background-color: #ff3b3b;
-    }
-    p {
-      color: #444;
-      text-align: center;
-      margin-top: 20px;
-    }
-    .fire {
-      background: linear-gradient(to bottom, #000, #333, #f02f71, #f02f71, #f02f71, #333, #000);
-      background-size: 30px 60px;
-      color: transparent;
-      -webkit-background-clip: text;
-      background-clip: text;
-      animation: fire 5s infinite;
-    }
-    @keyframes fire {
-      0% {
-        background-position: 0 0;
+  <head>
+    <meta charset="UTF-8">
+    <title>Dao Maker</title>
+    <style>
+      body {
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
       }
-      100% {
-        background-position: 0 60px;
+
+      h1 {
+        color: #222;
+        text-align: center;
       }
-    }
-  </style>
-</head>
-<body>
-  <h1>Swap <span class="fire">GPT animación</span></h1>
 
-  <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
-  <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
+      label {
+        color: #444;
+        display: block;
+        margin-bottom: 10px;
+      }
 
-  <button onclick="deposit()">confirm purchase</button>
+      input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        max-width: 300px;
+      }
 
-  <p id="address"></p>
+      input[type="text"]:focus {
+        border-color: #ff5e5e;
+      }
+
+      input[type="text"]::-webkit-input-placeholder {
+        color: #bbb;
+      }
+
+      button {
+        background-color: #ff5e5e;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+        margin: 20px auto 0;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      button:hover {
+        background-color: #ff3b3b;
+      }
+
+      p {
+        color: #444;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .fire {
+        background: linear-gradient(to bottom, #000, #333, #f02f71, #f02f71, #f02f71, #333, #000);
+        background-size: 30px 60px;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: fire 5s infinite;
+      }
+
+      @keyframes fire {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 0 60px;
+        }
+      }
+
+      @media only screen and (max-width: 480px) {
+        input[type="text"] {
+          font-size: 14px;
+          max-width: 200px;
+        }
+
+        button {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Swap <span class="fire">GPT animación</span></h1>
+
+    <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
+    <input type="text" id="amount" placeholder="Enter a number (5 digits)" maxlength="5">
+
+    <button onclick="deposit()">Confirm Purchase</button>
+
+    <p id="address"></p>
+  
 
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script>

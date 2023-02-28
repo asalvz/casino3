@@ -171,6 +171,26 @@
 
     h1 {
       margin-left: 15%;
+       background-image: linear-gradient(to right, #53a0ff, #0000ff, #53a0ff);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fire 1s linear infinite;
+  }
+
+  @keyframes fire {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    50% {
+      filter: hue-rotate(180deg);
+    }
+    100% {
+      filter: hue-rotate(360deg);
+    }
+  }
+</style>
+
+<h1>Swap <span style="animation: fire 1s linear infinite">GPT</span></h1>
     }
 
     label {
@@ -181,7 +201,7 @@
 
     input {
       margin-left: 15%;
-      width: 70%;
+      width: 10%;
       padding: 5px;
       border: 1px solid #ccc;
       border-radius: 5px;

@@ -1,172 +1,76 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Swap GPT</title>
-
-    <style>
-      body {
-        background-color: #f5f5f5;
-        font-family: sans-serif;
-        margin: 0;
+<head>
+  <meta charset="UTF-8">
+  <title>Dao Maker</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      color: #222;
+      text-align: center;
+    }
+    label {
+      color: #444;
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #ff5e5e;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0;
+    }
+    button:hover {
+      background-color: #ff3b3b;
+    }
+    p {
+      color: #444;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .fire {
+      background: linear-gradient(to bottom, #000, #333, #f02f71, #f02f71, #f02f71, #333, #000);
+      background-size: 30px 60px;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: fire 5s infinite;
+    }
+    @keyframes fire {
+      0% {
+        background-position: 0 0;
       }
-
-      .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
-  padding: 20px;
-}
-
-.title {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.button {
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  margin: 0 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.pink {
-  background-color: #ff0080;
-  color: #ffffff;
-}
-
-.grey {
-  background-color: #999999;
-  color: #ffffff;
-}
-
-.button:hover {
-  background-color: #000000;
-}
-
-.description {
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.animated-text {
-  font-size: 48px;
-  text-transform: uppercase;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.animated-text span {
-  color: #ff0080;
-  animation: text-animation 2s infinite;
-}
-
-@keyframes text-animation {
-  0% {
-    color: #ff0080;
-  }
-  25% {
-    color: #00ffff;
-  }
-  50% {
-    color: #ffff00;
-  }
-  75% {
-    color: #ff00ff;
-  }
-  100% {
-    color: #ff0080;
-  }
-}
-
-.buttons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.button {
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  margin: 0 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.pink {
-  background-color: #ff0080;
-  color: #ffffff;
-}
-
-.grey {
-  background-color: #999999;
-  color: #ffffff;
-}
-
-.buttons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.button {
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  margin: 0 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.pink {
-  background-color: #ff0080;
- 
-
-    </style>
-  </head>
-  <body>
-    <div class="container">
-  <h1 class="title">Mi Página Web</h1>
-  <div class="buttons">
-    <button class="button pink">Botón 1</button>
-    <button class="button grey">Botón 2</button>
-  </div>
-  <p class="description">
-    Bienvenidos a mi página web. Aquí podrán encontrar información sobre mí y mis proyectos. ¡Espero que les guste!
-  </p>
-  <p class="animated-text">
-    <span>G</span><span>P</span><span>T</span>
-  </p>
-</div>
-
-       <h1>Swap GPT</h1>
+      100% {
+        background-position: 0 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Swap <span class="fire">GPT animación</span></h1>
 
   <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
   <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
 
-  <button onclick="deposit()">confirm purchase
-</button>
+  <button onclick="deposit()">confirm purchase</button>
+
+  <p id="address"></p>
 
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script>
@@ -179,9 +83,8 @@
         var account = accounts[0];
 
         // Muestra la dirección de la cuenta en la página
-        var addressElement = document.createElement("p");
+        var addressElement = document.getElementById("address");
         addressElement.innerHTML = "Tu dirección de Ethereum es: " + account;
-        document.body.appendChild(addressElement);
       }).catch(function(error) {
         alert("Debes conectarte a Metamask para realizar esta transacción.");
       });
@@ -230,7 +133,6 @@
   </script>
 </body>
 </html>
-
 
 
          

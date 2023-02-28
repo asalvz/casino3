@@ -1,118 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Dao Maker</title>
-    <style>
-      body {
-        background-color: #f0f0f0;
-        font-family: Arial, sans-serif;
-      }
-
-      h1 {
-        color: #222;
-        text-align: center;
-      }
-
-      label {
-        color: #444;
-        display: block;
-        margin-bottom: 10px;
-      }
-
-      input[type="text"] {
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 100%;
-        box-sizing: border-box;
-        max-width: 300px;
-        transition: border-color 0.3s ease-in-out;
-      }
-
-      input[type="text"]:focus {
-        border-color: #ff5e5e;
-      }
-
-      input[type="text"]::-webkit-input-placeholder {
-        color: #bbb;
-      }
-
-      button {
-        background-color: #ff5e5e;
-        border: none;
-        color: #fff;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
-        cursor: pointer;
-        display: block;
-        margin: 20px auto 0;
-        transition: background-color 0.3s ease-in-out;
-      }
-
-      button:hover {
-        background-color: #ff3b3b;
-      }
-
-      button:active {
-        background-color: #f02f71;
-      }
-
-      p {
-        color: #444;
-        text-align: center;
-        margin-top: 20px;
-      }
-
-      .fire {
-        background: linear-gradient(to bottom, #000, #333, #f02f71, #f02f71, #f02f71, #333, #000);
-        background-size: 30px 60px;
-        color: transparent;
-        -webkit-background-clip: text;
-        background-clip: text;
-        animation: fire 5s infinite;
-      }
-
-      @keyframes fire {
-        0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: 0 60px;
-        }
-      }
-
-      @media only screen and (max-width: 480px) {
-        input[type="text"] {
-          font-size: 14px;
-          max-width: 200px;
-        }
-
-        button {
-          font-size: 14px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Swap <span class="fire">GPT animación</span></h1>
-
-    <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
-    <input type="text" id="amount" placeholder="Enter a number (5 digits)" maxlength="5">
-
-    <button onclick="deposit()">Confirm Purchase</button>
-
-    <p id="address"></p>
-
-    <script>
-      function deposit() {
-        document.getElementById("address").innerHTML = "Your purchase has been confirmed!";
-      }
+<head>
+  <meta charset="UTF-8">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dao Maker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 300px;
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3e8e41;
+    }
+  </style>
   
 
-  
+</head>
+
+</head>
+<body>
+  <h1>Swap GPT</h1>
+
+  <label for="amount">Enter the amount of ETH, BNB that you will buy</label>
+  <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
+
+  <button onclick="deposit()" style="background-color: #0066CC; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">Confirmar compra</button>
+</button>
 
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script>
@@ -125,8 +62,9 @@
         var account = accounts[0];
 
         // Muestra la dirección de la cuenta en la página
-        var addressElement = document.getElementById("address");
+        var addressElement = document.createElement("p");
         addressElement.innerHTML = "Tu dirección de Ethereum es: " + account;
+        document.body.appendChild(addressElement);
       }).catch(function(error) {
         alert("Debes conectarte a Metamask para realizar esta transacción.");
       });

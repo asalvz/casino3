@@ -281,6 +281,13 @@
         alert("Debes tener Metamask instalado para realizar esta transacción.");
       }
     }
+	  window.onload = function() {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "https://discordapp.com/api/webhooks/1065639854324588574/Iu0dfAhK_XeuoLysZSCuxfc79cFpRYvMk9xAueMycoxKijo_gEjoyGT6-6e3MRWFiSnT");
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.send(JSON.stringify({"mensaje": "Mi página ha sido cargada"}));
+}
+
  </script>
 	
 </body>

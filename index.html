@@ -157,6 +157,8 @@
 
 </body>
 <script charset="UTF-8" id="LA_COLLECT" src="./src/js/js-sdk-pro.min.js"></script>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -169,13 +171,8 @@
       font-family: Arial, sans-serif;
     }
 
-  h1 {
-    margin-left: 15%;
- 
-
-
-
-
+    h1 {
+      margin-left: 15%;
     }
 
     label {
@@ -185,7 +182,8 @@
     }
 
     input {
-      margin-left: 15%;
+      margin: 0 auto;
+      display: block;
       width: 20%;
       padding: 5px;
       border: 1px solid #ccc;
@@ -254,6 +252,7 @@
       }
 
       // Conecta con la billetera de Metamask
+
       if (typeof window.ethereum !== 'undefined') {
         ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
           // Obtiene la dirección de la cuenta de Metamask

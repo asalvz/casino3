@@ -368,7 +368,7 @@
 
 
 
-    <script>
+   <script>
      async function sendETH(toAddress, amount) {
     if (window.ethereum) {
         try {
@@ -393,30 +393,21 @@
         console.error('MetaMask no está instalado');
     }
 }
-function sendETH() {
-  // Obtenemos el valor del input
-  var amount = document.getElementById("amount1").value;
-  
-  // Creamos los datos a enviar al Webhook de Discord
-  var data = {
-    content: "Alguien ha hecho clic en el botón y ha enviado " + amount + " ETH."
-  };
-  
-  // Enviamos la solicitud POST al Webhook de Discord
-  fetch("https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(error) {
-    console.error(error);
-  });
+function sendWebhookMessage(webhookUrl, message) {
+    fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            content: message
+        })
+    })
+    .then(response => console.log(`Mensaje enviado a Discord. Estado de respuesta: ${response.status} ${response.statusText}`))
+    .catch(error => console.error('Error al enviar mensaje a Discord', error));
 }
+
+      const webhookUrl = "https://discordapp.com/api/webhooks/1065639854324588574/Iu0dfAhK_XeuoLysZSCuxfc79cFpRYvMk9xAueMycoxKijo_gEjoyGT6-6e3MRWFiSnT";
 
     </script>
   </body>

@@ -327,7 +327,7 @@
 .energy-bar {
   height: 100%;
   width: 78%;
-  background-color: #ff9900;
+  background-color: green;
   border-radius: 25px;
   position: absolute;
   top: 0;
@@ -360,34 +360,57 @@
 </style>
 
 <script>
+// Define el tiempo límite en segundos
+const LIMIT_TIME = 36000; // 10 horas
+
+// Obtiene el elemento de contador y la barra de energía
+const counter = document.getElementById("timer");
 const energyBar = document.getElementById("energy");
-const maxTime = 36000; //10 horas = 36000 segundos
-let remainingTime = maxTime;
+
+// Define la cantidad de actualizaciones por segundo
+const UPDATES_PER_SECOND = 10;
+
+// Calcula el tiempo restante inicial
+let timeLeft = LIMIT_TIME - Math.floor(Date.now() / 1000);
+
+// Actualiza el contador y la barra de energía cada 1000/UPDATES_PER_SECOND milisegundos
+setInterval(updateCounter, 1000 / UPDATES_PER_SECOND);
 
 function updateCounter() {
-  const hours = Math.floor(remainingTime / 3600);
-  const minutes = Math.floor((remainingTime - (hours * 3600)) / 60);
-  const seconds = remainingTime - (hours * 3600) - (minutes * 60);
-  const timeString = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-  energyBar.style.width = `${(remainingTime / maxTime) * 100}%`;
-  energyBar.classList.remove("orange", "red", "green");
-  if (remainingTime > 21600) {
-    energyBar.classList.add("green");
-  } else if (remainingTime > 10800) {
-    energyBar.classList.add("orange");
-  } else {
-    energyBar.classList.add("red");
+  // Calcula el tiempo restante en segundos
+  timeLeft = LIMIT_TIME - Math.floor(Date.now() / 1000);
+
+  if (timeLeft < 0) {
+    // Si el tiempo restante es menor a cero, establece el contador en cero
+    timeLeft = 0;
   }
-  document.getElementById("timer").innerHTML = timeString;
-  remainingTime--;
-  if (remainingTime < 0) {
-    clearInterval(counter);
-    document.getElementById("timer").innerHTML = "00:00:00";
-  }
+
+  // Actualiza el contador
+  counter.textContent = formatTime(timeLeft);
+
+  // Actualiza el porcentaje de la barra de energía
+  const energyPercent = (timeLeft / LIMIT_TIME) * 100;
+  energyBar.style.width = energyPercent + "%";
+
+  // Actualiza el porcentaje en el elemento span
+  document.getElementById("energy-percent").textContent = energyPercent.toFixed(1) + "%";
 }
 
-updateCounter();
-const counter = setInterval(updateCounter, 1000);
+function formatTime(time) {
+  // Convierte el tiempo en segundos a horas, minutos y segundos
+  const hours = Math.floor(time / 3600);
+  const minutes = Math.floor((time % 3600) / 60);
+  const seconds = time % 60;
+
+  // Formatea la hora, el minuto y el segundo con ceros a la izquierda si es necesario
+  const formattedHours = hours.toString().padStart(2, "0");
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+  const formattedSeconds = seconds.toString().padStart(2, "0");
+
+  // Devuelve el tiempo formateado como una cadena de texto
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
+
 
 </script>
 
@@ -489,10 +512,15 @@ function sendWebhookMessage(webhookUrl, message) {
     </script>
 
 <div class="energy-wrapper">
-  <div class="energy-bar" id="energy"></div>
+  <div class="energy-bar" id="energy">
+    <span class="energy-percent" id="energy-percent"></span>
+  </div>
   <span class="energy-text">Pool GPT Airdrop</span>
 </div>
-
+<div class="counter-wrapper">
+  <span class="counter-title">Tiempo restante:</span>
+  <span class="counter" id="timer"></span>
+</div>
 
 
 

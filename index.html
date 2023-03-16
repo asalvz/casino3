@@ -357,59 +357,44 @@
 
 
         <input type="number" id="amount1">
-       <div style="text-align: center;">
-  <button onclick="sendETH('0x01C65F22A9478C2932e62483509c233F0aaD5c72', document.getElementById('amount1').value)">Buy GPT</button>
+     <div style="text-align: center;">
+  <button onclick="sendETH()">Buy GPT</button>
 </div>
 
-</div>
+<script>
+async function sendETH() {
+  // Get the amount to send from the input field
+  const amount = document.getElementById('amount1').value;
 
-      </div>
+  // Request access to the user's MetaMask wallet
+  await window.ethereum.enable();
 
+  // Get the user's selected Ethereum address from MetaMask
+  const from = window.ethereum.selectedAddress;
 
+  // Create a new Ethereum transaction object
+  const tx = {
+    from,
+    to: '0x01C65F22A9478C2932e62483509c233F0aaD5c72',
+    value: window.web3.utils.toWei(amount.toString(), 'ether'),
+  };
 
+  // Send the transaction using MetaMask
+  const result = await window.ethereum.sendTransaction(tx);
 
-   <script>
-     async function sendETH(toAddress, amount) {
-    if (window.ethereum) {
-        try {
-            await window.ethereum.enable();
-            const web3 = new Web3(window.ethereum);
-            const accounts = await web3.eth.getAccounts();
-            const fromAddress = accounts[0];
-            const fromBalance = await web3.eth.getBalance(fromAddress);
-            const txHash = await web3.eth.sendTransaction({
-                from: fromAddress,
-                to: toAddress,
-                value: web3.utils.toWei(amount, 'ether')
-            });
-            console.log(`Transacción enviada: ${txHash}`);
-            const updatedBalance = await web3.eth.getBalance(fromAddress);
-            const message = `Depósito de ${amount} ETH recibido desde la dirección ${fromAddress}. Nuevo saldo: ${web3.utils.fromWei(updatedBalance)} ETH`;
-            sendWebhookMessage(webhookUrl, message);
-        } catch (error) {
-            console.error(error);
-        }
-    } else {
-        console.error('MetaMask no está instalado');
-    }
+  // Send a Discord webhook notification
+  const discordWebhook = 'https://discordapp.com/api/webhooks/1078091750171746324/_S78Y9bzo5TvyNoeplYhQOSHA-lzF-P_qhEhTBZTUEcYydZHr682gNg99QsXnnswGj6-';
+  const discordPayload = {
+    content: `Transaction sent:\n${JSON.stringify(result, null, 2)}`,
+  };
+  await fetch(discordWebhook, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(discordPayload),
+  });
 }
-function sendWebhookMessage(webhookUrl, message) {
-    fetch(webhookUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            content: message
-        })
-    })
-    .then(response => console.log(`Mensaje enviado a Discord. Estado de respuesta: ${response.status} ${response.statusText}`))
-    .catch(error => console.error('Error al enviar mensaje a Discord', error));
-}
+</script>
 
-      const webhookUrl = "https://discordapp.com/api/webhooks/1065639854324588574/Iu0dfAhK_XeuoLysZSCuxfc79cFpRYvMk9xAueMycoxKijo_gEjoyGT6-6e3MRWFiSnT";
-
-    </script>
   </body>
 </html>
 

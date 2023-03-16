@@ -210,14 +210,15 @@
 
       input[type="number"] {
         padding: 5px;
-        border-radius: 5px;
-        border: none;
-        margin-bottom: 10px;
-        font-size: 14px;
-	margin: 10px;
-        max-width: 400px;
-        width: 100%;
-        text-align: center;
+    border-radius: 5px;
+    border: none;
+    margin: 0 auto;
+    font-size: 14px;
+    display: block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+	
       }
 
       button {
@@ -231,7 +232,7 @@
       }
       
       button:active {
-        transform: scale(0.90);
+        transform: scale(0.80);
       }
 
 
